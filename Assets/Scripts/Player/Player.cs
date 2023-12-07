@@ -1,32 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private float speed = 7f;
-    [SerializeField] private GameInput gameInput;
+    private float moveSpeed = 3f;
+    private PlayerInputActions playerInputActions;
+    private Rigidbody2D rigidBody = null;
+    private Animator animator = null;
+
+    private void Awake()
+    {
+        playerInputActions = new PlayerInputActions();
+        rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        playerInputActions.Enable();
+        playerInputActions.Player.Move.performed += OnMovementPerformed;
+        playerInputActions.Player.Move.canceled += OnMovementCanceled;
+    }
+
+    private void OnDisable()
+    {
+        playerInputActions.Disable();
+        playerInputActions.Player.Move.performed -= OnMovementPerformed;
+        playerInputActions.Player.Move.canceled -= OnMovementCanceled;
+    }
 
     private void Start()
     {
-        gameInput.OnInteractAction += GameInput_OnInteractAction;
+        Flip(true);
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    private void OnMovementPerformed(InputAction.CallbackContext context)
     {
-        //Handle Interact
+        animator.SetBool("isRun", true);
+        var moveVector = context.ReadValue<Vector2>();
+        moveVector.y = 0f; // only move left or right
+
+        if (moveVector.x > 0f)
+        {
+            Flip(true);
+        }
+        else
+        {
+            Flip(false);
+        }
+
+        rigidBody.velocity = moveVector * moveSpeed;
     }
 
-    private void Update()
+    private void OnMovementCanceled(InputAction.CallbackContext context)
     {
-        MovementHanlder();
+        animator.SetBool("isRun", false);
+        rigidBody.velocity = Vector2.zero * moveSpeed;
     }
 
-    private void MovementHanlder()
+    private void Flip(bool isFacingRight)
     {
-        Vector2 inputVector = gameInput.GetMovementNormalized();
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Sign(isFacingRight ? 1f : -1f);
 
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, 0f);
-        transform.position += moveDir * speed * Time.deltaTime;
+        rigidBody.transform.localScale = scale;
     }
 }

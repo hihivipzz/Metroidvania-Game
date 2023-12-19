@@ -541,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   boxCollider2D: {fileID: 0}
   playerAnimator: {fileID: 0}
   isWalking: 0

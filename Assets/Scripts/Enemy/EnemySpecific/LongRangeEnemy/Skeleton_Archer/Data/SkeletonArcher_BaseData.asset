@@ -18,7 +18,7 @@ MonoBehaviour:
   knockbackSpeedY: 10
   knockbackDuration: 0.2
   wallCheckDistance: 0.2
-  ledgeCheckDistance: 0.4
+  ledgeCheckDistance: 1
   groundCheckRadius: 0.3
   maxAgroDistance: 15
   minAgroDistance: 13

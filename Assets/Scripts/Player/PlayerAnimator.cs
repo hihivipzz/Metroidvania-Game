@@ -38,4 +38,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("isAttackSkillThree", isAttack);
     }
+
+    public void DeadAnimation(bool isDead)
+    {
+        animator.SetBool("isDead", isDead);
+    }
 }

@@ -30,16 +30,7 @@ public class SkillOne : AbtractAttack
 
     public void OnAttackSkillOne()
     {
-        Collider2D[] enemiesCollider = Physics2D.OverlapCircleAll(attackPoint.transform.position, Radius, Enemies);
-
-        foreach (Collider2D enemyCollider in enemiesCollider)
-        {
-            AttackDetails attackDetails = new AttackDetails();
-            attackDetails.position = transform.position;
-            attackDetails.damageAmount = DamageAmout;
-            Enemy enemy = enemyCollider.transform.parent.GetComponent<Enemy>();
-            enemy.Damage(attackDetails);
-        }
+        OnDetectEnemyToMakeDamage();
     }
 
     private void OnDrawGizmos()

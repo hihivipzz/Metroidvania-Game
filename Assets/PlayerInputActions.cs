@@ -89,6 +89,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Surfing"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad7c1403-c45f-4d07-a115-27a4ab0e2384"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -190,6 +199,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""AttackSkill3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7697d38e-35c7-4f15-9b3b-4742ef01aa1a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": ""MultiTap(tapTime=0.2,tapDelay=0.2,pressPoint=0.2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Surfing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec874235-e3c0-436a-bd5e-a918bfc74850"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": ""MultiTap(tapTime=0.2,tapDelay=0.2,pressPoint=0.2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Surfing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -205,6 +236,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_AttackSkill1 = m_Player.FindAction("AttackSkill1", throwIfNotFound: true);
         m_Player_AttackSkill2 = m_Player.FindAction("AttackSkill2", throwIfNotFound: true);
         m_Player_AttackSkill3 = m_Player.FindAction("AttackSkill3", throwIfNotFound: true);
+        m_Player_Surfing = m_Player.FindAction("Surfing", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +305,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AttackSkill1;
     private readonly InputAction m_Player_AttackSkill2;
     private readonly InputAction m_Player_AttackSkill3;
+    private readonly InputAction m_Player_Surfing;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -284,6 +317,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @AttackSkill1 => m_Wrapper.m_Player_AttackSkill1;
         public InputAction @AttackSkill2 => m_Wrapper.m_Player_AttackSkill2;
         public InputAction @AttackSkill3 => m_Wrapper.m_Player_AttackSkill3;
+        public InputAction @Surfing => m_Wrapper.m_Player_Surfing;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +348,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AttackSkill3.started += instance.OnAttackSkill3;
             @AttackSkill3.performed += instance.OnAttackSkill3;
             @AttackSkill3.canceled += instance.OnAttackSkill3;
+            @Surfing.started += instance.OnSurfing;
+            @Surfing.performed += instance.OnSurfing;
+            @Surfing.canceled += instance.OnSurfing;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -339,6 +376,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AttackSkill3.started -= instance.OnAttackSkill3;
             @AttackSkill3.performed -= instance.OnAttackSkill3;
             @AttackSkill3.canceled -= instance.OnAttackSkill3;
+            @Surfing.started -= instance.OnSurfing;
+            @Surfing.performed -= instance.OnSurfing;
+            @Surfing.canceled -= instance.OnSurfing;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -365,5 +405,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAttackSkill1(InputAction.CallbackContext context);
         void OnAttackSkill2(InputAction.CallbackContext context);
         void OnAttackSkill3(InputAction.CallbackContext context);
+        void OnSurfing(InputAction.CallbackContext context);
     }
 }

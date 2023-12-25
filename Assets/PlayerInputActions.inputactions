@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Surfing",
+                    "type": "Button",
+                    "id": "ad7c1403-c45f-4d07-a115-27a4ab0e2384",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -166,6 +175,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "AttackSkill3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7697d38e-35c7-4f15-9b3b-4742ef01aa1a",
+                    "path": "<Keyboard>/d",
+                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.2,pressPoint=0.2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Surfing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec874235-e3c0-436a-bd5e-a918bfc74850",
+                    "path": "<Keyboard>/a",
+                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.2,pressPoint=0.2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Surfing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

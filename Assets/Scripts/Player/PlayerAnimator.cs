@@ -43,4 +43,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("isDead", isDead);
     }
+
+    public void SurfingAnimation(bool isSurfing)
+    {
+        animator.SetBool("isSurfing", isSurfing);
+    }
 }

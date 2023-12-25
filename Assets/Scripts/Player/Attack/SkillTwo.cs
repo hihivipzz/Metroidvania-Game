@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class SkillTwo : AbtractAttack
 {
+    private float height = 0.6f;
+    private float width = 2f;
     void Awake()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
@@ -35,6 +37,6 @@ public class SkillTwo : AbtractAttack
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireSphere(attackPoint.transform.position, Radius);
+        DrawRectangle();
     }
 }

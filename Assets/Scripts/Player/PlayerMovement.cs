@@ -5,11 +5,12 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerProperty playerProperty;
     public PlayerInputActions playerInputActions;
-    public Rigidbody2D rigidBody = null;
-    public LayerMask whatIsGround;
+    public Rigidbody2D rigidBody;
     public BoxCollider2D boxCollider2D;
     public PlayerAnimator playerAnimator;
-    private Vector2 vectorGravity;
+    public GameObject groundCheckPoint;
+    public LayerMask groundLayer;
+    public bool _isFacingRight;
 
     void Awake()
     {
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
     }
+
     private void OnEnable()
     {
         playerInputActions.Enable();
@@ -28,29 +30,24 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions.Player.Jump.canceled += OnJumpCanceled;
         playerInputActions.Player.Walk.performed += OnWalkPerformed;
         playerInputActions.Player.Walk.canceled += OnWalkCanceled;
+        playerInputActions.Player.Surfing.performed += OnSurfingPerformed;
+        playerInputActions.Player.Surfing.canceled += OnSurfingCanceled;
     }
 
     void Start()
     {
-        vectorGravity = new Vector2(0, -Physics2D.gravity.y);
         rigidBody.freezeRotation = true;
     }
 
     void FixedUpdate()
     {
         rigidBody.velocity = new Vector2(playerProperty.moveVector.x * playerProperty.moveSpeed, rigidBody.velocity.y);
-        playerProperty.isGrounded = Physics2D.OverlapCircle(rigidBody.position, playerProperty.checkRadius, whatIsGround);
-
+        CheckGround();
         playerProperty.isJumping = !playerProperty.isGrounded;
 
         if (!playerProperty.isJumping && playerProperty.isWalking)
         {
             playerProperty.moveSpeed = playerProperty.walkSpeed;
-        }
-
-        if (rigidBody.velocity.y < 0)
-        {
-            rigidBody.velocity -= vectorGravity * playerProperty.fallMultiplier * Time.deltaTime;
         }
 
         playerAnimator.JumpAnimation(!playerProperty.isGrounded);
@@ -74,8 +71,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        playerProperty.isGrounded = Physics2D.OverlapCircle(rigidBody.position, playerProperty.checkRadius, whatIsGround);
-
         if (playerProperty.isGrounded)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, playerProperty.jumpPower);
@@ -86,8 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!playerProperty.isGrounded && playerProperty.isJumping && playerProperty.isDoubleJumping)
         {
-            //rigidBody.velocity = new Vector2(rigidBody.velocity.x, playerProperty.jumpPower);
-            rigidBody.velocity += vectorGravity * playerProperty.jumpMultiplier * Time.deltaTime;
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, playerProperty.jumpPower);
             playerAnimator.JumpAnimation(true);
             playerProperty.isDoubleJumping = false;
         }
@@ -114,8 +108,31 @@ public class PlayerMovement : MonoBehaviour
         playerProperty.isWalking = false;
     }
 
+    public void OnSurfingPerformed(InputAction.CallbackContext context)
+    {
+        Vector2 newPosition = _isFacingRight ? new Vector2(transform.position.x + 10f, transform.position.y) : new Vector2(transform.position.x - 10f, transform.position.y);
+        rigidBody.MovePosition(newPosition);
+        playerAnimator.SurfingAnimation(true);
+    }
+
+    public void OnSurfingCanceled(InputAction.CallbackContext context)
+    {
+        playerAnimator.SurfingAnimation(false);
+    }
+
     public void Flip(bool isFacingRight)
     {
+        _isFacingRight = isFacingRight;
         transform.localScale = new Vector3(isFacingRight ? 1f : -1f, 1f, 1f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(groundCheckPoint.transform.position, 0.1f);
+    }
+
+    public void CheckGround()
+    {
+        playerProperty.isGrounded = Physics2D.OverlapCircle(groundCheckPoint.transform.position, 0.1f, groundLayer);
     }
 }

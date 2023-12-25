@@ -35,6 +35,6 @@ public class SkillOne : AbtractAttack
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireSphere(attackPoint.transform.position, Radius);
+        DrawRectangle();
     }
 }

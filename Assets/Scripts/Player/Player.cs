@@ -32,9 +32,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        AttackDetails attackDetails = new AttackDetails();
-        attackDetails.position = transform.position;
-        attackDetails.damageAmount = 1f;
-        OnDamage(attackDetails);
+        //AttackDetails attackDetails = new AttackDetails();
+        //attackDetails.position = transform.position;
+        //attackDetails.damageAmount = 1f;
+        //OnDamage(attackDetails);
     }
 }

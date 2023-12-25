@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public bool _isFacingRight;
 
+    [Header("Camera Stuff")]
+    [SerializeField] private GameObject _cameraFollowGO;
+
+    private CameraFollowObject _cameraFollowObject;
+
     void Awake()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
@@ -20,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+
+        _cameraFollowObject = _cameraFollowGO.GetComponent<CameraFollowObject>();
     }
 
     private void OnEnable()
@@ -51,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         playerAnimator.JumpAnimation(!playerProperty.isGrounded);
+
+        if(playerProperty.moveVector.x > 0 || playerProperty.moveVector.x < 0)
+        {
+            TurnCheck();
+        }
     }
 
     public void OnRunPerformed(InputAction.CallbackContext context)
@@ -153,4 +165,40 @@ public class PlayerMovement : MonoBehaviour
     {
         playerProperty.isGrounded = Physics2D.OverlapCircle(groundCheckPoint.transform.position, 0.1f, groundLayer);
     }
+
+
+    private void TurnCheck()
+    {
+        if(_isFacingRight && playerProperty.moveVector.x < 0f)
+        {
+            Turn();
+        }
+        else if(!_isFacingRight && playerProperty.moveVector.x > 0f)
+        {
+            Turn();
+        }
+    }
+
+    private void Turn()
+    {
+        if(_isFacingRight)
+        {
+            Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+            _isFacingRight = !_isFacingRight;
+
+            // turn the camera follow object
+            _cameraFollowObject.CallTurn();
+        }
+        else
+        {
+            Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+            _isFacingRight = !_isFacingRight;
+
+            // turn the camera follow object
+            _cameraFollowObject.CallTurn();
+        }
+    }
+
 }

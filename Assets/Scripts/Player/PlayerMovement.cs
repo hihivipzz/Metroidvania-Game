@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions.Player.Walk.performed += OnWalkPerformed;
         playerInputActions.Player.Walk.canceled += OnWalkCanceled;
         playerInputActions.Player.Surfing.performed += OnSurfingPerformed;
-        playerInputActions.Player.Surfing.canceled += OnSurfingCanceled;
     }
 
     void Start()
@@ -110,13 +110,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSurfingPerformed(InputAction.CallbackContext context)
     {
+        float raycastDistance = 10f;
+        Vector2 raycastOrigin = _isFacingRight ? transform.position : new Vector2(transform.position.x - raycastDistance, transform.position.y);
         Vector2 newPosition = _isFacingRight ? new Vector2(transform.position.x + 10f, transform.position.y) : new Vector2(transform.position.x - 10f, transform.position.y);
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, Vector2.right * (_isFacingRight ? 1 : -1), raycastDistance);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                float offset = 0.1f;
+                float newXPosition = hit.point.x - (_isFacingRight ? offset : -offset);
+
+                newPosition = new Vector2(newXPosition, transform.position.y);
+            }
+        }
+
         rigidBody.MovePosition(newPosition);
         playerAnimator.SurfingAnimation(true);
+        StartCoroutine(OnSurfingCanceled(0.5f));
     }
 
-    public void OnSurfingCanceled(InputAction.CallbackContext context)
+    private IEnumerator OnSurfingCanceled(float delay)
     {
+        yield return new WaitForSeconds(delay);
         playerAnimator.SurfingAnimation(false);
     }
 

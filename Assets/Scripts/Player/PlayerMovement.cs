@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject _cameraFollowGO;
 
     private CameraFollowObject _cameraFollowObject;
+    private float _fallSpeedYDampingChangeThreshold;
 
     void Awake()
     {
@@ -26,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
 
-        _cameraFollowObject = _cameraFollowGO.GetComponent<CameraFollowObject>();
     }
 
     private void OnEnable()
@@ -44,7 +44,31 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigidBody.freezeRotation = true;
+
+        _cameraFollowObject = _cameraFollowGO.GetComponent<CameraFollowObject>();
+        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedDampingChangeThreshold;
     }
+
+
+    private void Update()
+    {
+        // if we are falling past a certain speed threshold
+
+        if (rigidBody.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpYDamping(true);
+        }
+
+        // if we are standing still or moving up
+        if (rigidBody.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            // reset so it can be called again
+            CameraManager.instance.LerpedFromPlayerFalling = false;
+
+            CameraManager.instance.LerpYDamping(false);
+        }
+    }
+
 
     void FixedUpdate()
     {
@@ -68,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnRunPerformed(InputAction.CallbackContext context)
     {
         playerProperty.moveVector = context.ReadValue<Vector2>();
-        Flip(playerProperty.moveVector.x > 0f ? true : false);
+        //Flip(playerProperty.moveVector.x > 0f ? true : false);
         playerProperty.isRunning = true;
         playerProperty.moveSpeed = playerProperty.runSpeed;
         playerAnimator.RunAnimation(true);

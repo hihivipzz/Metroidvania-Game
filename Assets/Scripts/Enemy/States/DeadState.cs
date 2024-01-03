@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DeadState : State
+public class DeadState : EnemyState
 {
     protected D_DeadState stateData;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookForPlayerState : State {
+public class LookForPlayerState : EnemyState {
     private D_LookForPlayerState stateData;
 
     protected bool turnImediately;

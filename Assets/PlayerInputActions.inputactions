@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "JumpHigher",
+                    "type": "Button",
+                    "id": "22cc42aa-5f1d-42cb-a2ac-0ad8107d746f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -197,6 +206,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Surfing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a21f6710-a322-47ba-9619-74e0bbfbfc73",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold(duration=0.3,pressPoint=1.401298E-45)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpHigher",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

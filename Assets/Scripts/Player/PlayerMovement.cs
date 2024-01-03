@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions.Player.Walk.performed += OnWalkPerformed;
         playerInputActions.Player.Walk.canceled += OnWalkCanceled;
         playerInputActions.Player.Surfing.performed += OnSurfingPerformed;
+        playerInputActions.Player.JumpHigher.performed += OnJumpHigherPerformed;
     }
 
     void Start()
@@ -52,17 +53,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // if we are falling past a certain speed threshold
+        if (playerProperty.isDead) return;
 
         if (rigidBody.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
         {
             CameraManager.instance.LerpYDamping(true);
         }
 
-        // if we are standing still or moving up
         if (rigidBody.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
         {
-            // reset so it can be called again
             CameraManager.instance.LerpedFromPlayerFalling = false;
 
             CameraManager.instance.LerpYDamping(false);
@@ -72,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (playerProperty.isDead) return;
+
         rigidBody.velocity = new Vector2(playerProperty.moveVector.x * playerProperty.moveSpeed, rigidBody.velocity.y);
         CheckGround();
         playerProperty.isJumping = !playerProperty.isGrounded;
@@ -83,16 +84,28 @@ public class PlayerMovement : MonoBehaviour
 
         playerAnimator.JumpAnimation(!playerProperty.isGrounded);
 
-        if(playerProperty.moveVector.x > 0 || playerProperty.moveVector.x < 0)
+        if (playerProperty.moveVector.x > 0 || playerProperty.moveVector.x < 0)
         {
             TurnCheck();
         }
     }
 
+    public void OnJumpHigherPerformed(InputAction.CallbackContext context)
+    {
+        if (playerProperty.isDead) return;
+
+        if (!playerProperty.isGrounded && playerProperty.isJumping && playerProperty.isJumpHigher)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, playerProperty.jumpPower);
+            playerProperty.isJumpHigher = false;
+        }
+    }
+
     public void OnRunPerformed(InputAction.CallbackContext context)
     {
+        if (playerProperty.isDead) return;
+
         playerProperty.moveVector = context.ReadValue<Vector2>();
-        //Flip(playerProperty.moveVector.x > 0f ? true : false);
         playerProperty.isRunning = true;
         playerProperty.moveSpeed = playerProperty.runSpeed;
         playerAnimator.RunAnimation(true);
@@ -107,12 +120,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJumpPerformed(InputAction.CallbackContext context)
     {
+        if (playerProperty.isDead) return;
+
         if (playerProperty.isGrounded)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, playerProperty.jumpPower);
             playerAnimator.JumpAnimation(true);
             playerProperty.isJumping = true;
             playerProperty.isDoubleJumping = true;
+            playerProperty.isJumpHigher = true;
         }
 
         if (!playerProperty.isGrounded && playerProperty.isJumping && playerProperty.isDoubleJumping)
@@ -130,6 +146,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnWalkPerformed(InputAction.CallbackContext context)
     {
+        if (playerProperty.isDead) return;
+
         playerProperty.isWalking = true;
         if (playerProperty.isJumping)
         {
@@ -146,6 +164,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSurfingPerformed(InputAction.CallbackContext context)
     {
+        if (playerProperty.isDead) return;
+
         float raycastDistance = 10f;
         Vector2 raycastOrigin = _isFacingRight ? transform.position : new Vector2(transform.position.x - raycastDistance, transform.position.y);
         Vector2 newPosition = _isFacingRight ? new Vector2(transform.position.x + 10f, transform.position.y) : new Vector2(transform.position.x - 10f, transform.position.y);
@@ -190,14 +210,13 @@ public class PlayerMovement : MonoBehaviour
         playerProperty.isGrounded = Physics2D.OverlapCircle(groundCheckPoint.transform.position, 0.1f, groundLayer);
     }
 
-
     private void TurnCheck()
     {
-        if(_isFacingRight && playerProperty.moveVector.x < 0f)
+        if (_isFacingRight && playerProperty.moveVector.x < 0f)
         {
             Turn();
         }
-        else if(!_isFacingRight && playerProperty.moveVector.x > 0f)
+        else if (!_isFacingRight && playerProperty.moveVector.x > 0f)
         {
             Turn();
         }
@@ -205,7 +224,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Turn()
     {
-        if(_isFacingRight)
+        if (_isFacingRight)
         {
             Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);

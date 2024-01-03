@@ -24,19 +24,9 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool("isWalk", isWalk);
     }
 
-    public void AttackSkillOneAnimation(bool isAttack)
+    public void TriggerAttack(int attackNumber)
     {
-        animator.SetBool("isAttackSkillOne", isAttack);
-    }
-
-    public void AttackSkillTwoAnimation(bool isAttack)
-    {
-        animator.SetBool("isAttackSkillTwo", isAttack);
-    }
-
-    public void AttackSkillThreeAnimation(bool isAttack)
-    {
-        animator.SetBool("isAttackSkillThree", isAttack);
+        animator.SetTrigger("attack" + attackNumber);
     }
 
     public void DeadAnimation(bool isDead)
@@ -47,5 +37,10 @@ public class PlayerAnimator : MonoBehaviour
     public void SurfingAnimation(bool isSurfing)
     {
         animator.SetBool("isSurfing", isSurfing);
+    }
+
+    public void HurtAnimation(bool isHurt)
+    {
+        animator.SetBool("isHurt", isHurt);
     }
 }

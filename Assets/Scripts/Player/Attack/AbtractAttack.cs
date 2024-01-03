@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +5,7 @@ public abstract class AbtractAttack : MonoBehaviour
 {
     protected PlayerInputActions playerInputActions;
     protected PlayerAnimator playerAnimator;
+    protected PlayerProperty playerProperty;
     public GameObject attackPoint;
     public LayerMask Enemies;
     public float DamageAmout = 5f;
@@ -14,11 +14,15 @@ public abstract class AbtractAttack : MonoBehaviour
     public float height;
     [SerializeField]
     public float width;
+    public int comboCount = 1;
+    public bool isAttack = false;
 
     void Awake()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
         playerInputActions = new PlayerInputActions();
+        playerProperty = GetComponent<PlayerProperty>();
+        comboCount = 1;
     }
 
     public abstract void OnAttackPerformed(InputAction.CallbackContext context);
@@ -38,7 +42,6 @@ public abstract class AbtractAttack : MonoBehaviour
             enemy.Damage(attackDetails);
         }
     }
-    public abstract IEnumerator PerformedSkillAnimation();
 
     protected void DrawRectangle()
     {
@@ -54,5 +57,34 @@ public abstract class AbtractAttack : MonoBehaviour
         Gizmos.DrawLine(topRight, bottomRight);
         Gizmos.DrawLine(bottomRight, bottomLeft);
         Gizmos.DrawLine(bottomLeft, topLeft);
+    }
+
+    public void StartCombo()
+    {
+        isAttack = false;
+        if (comboCount < 3)
+        {
+            comboCount++;
+        }
+    }
+
+    public void FinishAnimation()
+    {
+        isAttack = false;
+        comboCount = 1;
+    }
+
+    public void Combos_()
+    {
+        if (Input.GetKeyDown(KeyCode.P) && !isAttack)
+        {
+            isAttack = true;
+            playerAnimator.TriggerAttack(comboCount);
+        }
+    }
+
+    void Update()
+    {
+        Combos_();
     }
 }

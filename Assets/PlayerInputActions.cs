@@ -98,6 +98,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JumpHigher"",
+                    ""type"": ""Button"",
+                    ""id"": ""22cc42aa-5f1d-42cb-a2ac-0ad8107d746f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -221,6 +230,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Surfing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a21f6710-a322-47ba-9619-74e0bbfbfc73"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Hold(duration=0.3,pressPoint=1.401298E-45)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpHigher"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -237,6 +257,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_AttackSkill2 = m_Player.FindAction("AttackSkill2", throwIfNotFound: true);
         m_Player_AttackSkill3 = m_Player.FindAction("AttackSkill3", throwIfNotFound: true);
         m_Player_Surfing = m_Player.FindAction("Surfing", throwIfNotFound: true);
+        m_Player_JumpHigher = m_Player.FindAction("JumpHigher", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +327,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AttackSkill2;
     private readonly InputAction m_Player_AttackSkill3;
     private readonly InputAction m_Player_Surfing;
+    private readonly InputAction m_Player_JumpHigher;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -318,6 +340,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @AttackSkill2 => m_Wrapper.m_Player_AttackSkill2;
         public InputAction @AttackSkill3 => m_Wrapper.m_Player_AttackSkill3;
         public InputAction @Surfing => m_Wrapper.m_Player_Surfing;
+        public InputAction @JumpHigher => m_Wrapper.m_Player_JumpHigher;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -351,6 +374,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Surfing.started += instance.OnSurfing;
             @Surfing.performed += instance.OnSurfing;
             @Surfing.canceled += instance.OnSurfing;
+            @JumpHigher.started += instance.OnJumpHigher;
+            @JumpHigher.performed += instance.OnJumpHigher;
+            @JumpHigher.canceled += instance.OnJumpHigher;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -379,6 +405,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Surfing.started -= instance.OnSurfing;
             @Surfing.performed -= instance.OnSurfing;
             @Surfing.canceled -= instance.OnSurfing;
+            @JumpHigher.started -= instance.OnJumpHigher;
+            @JumpHigher.performed -= instance.OnJumpHigher;
+            @JumpHigher.canceled -= instance.OnJumpHigher;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -406,5 +435,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAttackSkill2(InputAction.CallbackContext context);
         void OnAttackSkill3(InputAction.CallbackContext context);
         void OnSurfing(InputAction.CallbackContext context);
+        void OnJumpHigher(InputAction.CallbackContext context);
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SkillOne : AbtractAttack
@@ -18,14 +16,7 @@ public class SkillOne : AbtractAttack
 
     public override void OnAttackPerformed(InputAction.CallbackContext context)
     {
-        StartCoroutine(PerformedSkillAnimation());
-    }
-
-    public override IEnumerator PerformedSkillAnimation()
-    {
-        playerAnimator.AttackSkillOneAnimation(true);
-        yield return new WaitForSeconds(timeEndAnimation);
-        playerAnimator.AttackSkillOneAnimation(false);
+        playerAnimator.TriggerAttack(1);
     }
 
     public void OnAttackSkillOne()

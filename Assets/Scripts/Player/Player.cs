@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private PlayerProperty playerProperty;
+    public PlayerProperty playerProperty { get; private set; }
     private PlayerAnimator playerAnimator;
-    private float blood;
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
@@ -12,29 +11,38 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerProperty = GetComponent<PlayerProperty>();
         playerAnimator = GetComponent<PlayerAnimator>();
-        blood = playerProperty.maxBlood;
+        playerProperty.currentBlood = playerProperty.maxBlood;
+        playerProperty.currentHearth = playerProperty.maxHearth;
     }
 
     private void OnDamage(AttackDetails attackDetail)
     {
-        if (blood > 0)
+        if (playerProperty.currentBlood > 0)
         {
-            blood -= attackDetail.damageAmount;
+            playerProperty.currentBlood -= attackDetail.damageAmount;
+            UIHealthBar.instance.SetValue(playerProperty.currentBlood / (float)playerProperty.maxBlood);
+            playerAnimator.HurtAnimation(true);
             //spriteRenderer.GetComponent<FlashEffect>().Flash();
         }
 
-        if (blood <= 0)
+        if (playerProperty.currentBlood <= 0)
         {
-            blood = 0;
+            playerProperty.currentBlood = 0;
+            playerProperty.isDead = true;
             playerAnimator.DeadAnimation(true);
+            HearthLayer.instance.RemoveHeart(playerProperty.currentHearth - 1);
+            playerProperty.currentHearth -= 1;
         }
     }
 
     private void Update()
     {
-        //AttackDetails attackDetails = new AttackDetails();
-        //attackDetails.position = transform.position;
-        //attackDetails.damageAmount = 1f;
-        //OnDamage(attackDetails);
+        //if (playerProperty.currentHearth >= 3)
+        //{
+        //    AttackDetails attackDetails = new AttackDetails();
+        //    attackDetails.position = transform.position;
+        //    attackDetails.damageAmount = 1f;
+        //    OnDamage(attackDetails);
+        //}
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public abstract class MoveState : State {
+public abstract class MoveState : EnemyState {
     protected D_MoveState stateData;
 
     protected bool isDetectingWall;

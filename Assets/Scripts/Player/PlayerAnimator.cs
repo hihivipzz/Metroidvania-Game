@@ -23,4 +23,24 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("isWalk", isWalk);
     }
+
+    public void TriggerAttack(int attackNumber)
+    {
+        animator.SetTrigger("attack" + attackNumber);
+    }
+
+    public void DeadAnimation(bool isDead)
+    {
+        animator.SetBool("isDead", isDead);
+    }
+
+    public void SurfingAnimation(bool isSurfing)
+    {
+        animator.SetBool("isSurfing", isSurfing);
+    }
+
+    public void HurtAnimation(bool isHurt)
+    {
+        animator.SetBool("isHurt", isHurt);
+    }
 }

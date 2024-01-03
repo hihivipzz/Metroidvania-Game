@@ -62,6 +62,51 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackSkill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""131e7e8c-60ff-4160-bf5f-d9fe424ee84a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackSkill2"",
+                    ""type"": ""Button"",
+                    ""id"": ""d586ec8c-8efc-4363-bda4-133cc31b0c8f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackSkill3"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d939691-e740-457f-81df-529131728372"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Surfing"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad7c1403-c45f-4d07-a115-27a4ab0e2384"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JumpHigher"",
+                    ""type"": ""Button"",
+                    ""id"": ""22cc42aa-5f1d-42cb-a2ac-0ad8107d746f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -75,28 +120,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""72faa565-ee72-4cdb-ae5c-c0978680d3a5"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""eb599952-f107-4829-81ff-1e3a28850bed"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
@@ -152,6 +175,72 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ba15692-bf4f-4a65-9aa2-c5ef03d4df93"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackSkill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e8ed054-0649-48f4-96f3-838af76c6a68"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackSkill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4868636b-5c0c-459d-963c-468f443c031c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackSkill3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7697d38e-35c7-4f15-9b3b-4742ef01aa1a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": ""MultiTap(tapTime=0.21,tapDelay=0.2,pressPoint=0.2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Surfing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec874235-e3c0-436a-bd5e-a918bfc74850"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": ""MultiTap(tapTime=0.21,tapDelay=0.2,pressPoint=0.2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Surfing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a21f6710-a322-47ba-9619-74e0bbfbfc73"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Hold(duration=0.3,pressPoint=1.401298E-45)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpHigher"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +253,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
+        m_Player_AttackSkill1 = m_Player.FindAction("AttackSkill1", throwIfNotFound: true);
+        m_Player_AttackSkill2 = m_Player.FindAction("AttackSkill2", throwIfNotFound: true);
+        m_Player_AttackSkill3 = m_Player.FindAction("AttackSkill3", throwIfNotFound: true);
+        m_Player_Surfing = m_Player.FindAction("Surfing", throwIfNotFound: true);
+        m_Player_JumpHigher = m_Player.FindAction("JumpHigher", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +323,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Walk;
+    private readonly InputAction m_Player_AttackSkill1;
+    private readonly InputAction m_Player_AttackSkill2;
+    private readonly InputAction m_Player_AttackSkill3;
+    private readonly InputAction m_Player_Surfing;
+    private readonly InputAction m_Player_JumpHigher;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -237,6 +336,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
+        public InputAction @AttackSkill1 => m_Wrapper.m_Player_AttackSkill1;
+        public InputAction @AttackSkill2 => m_Wrapper.m_Player_AttackSkill2;
+        public InputAction @AttackSkill3 => m_Wrapper.m_Player_AttackSkill3;
+        public InputAction @Surfing => m_Wrapper.m_Player_Surfing;
+        public InputAction @JumpHigher => m_Wrapper.m_Player_JumpHigher;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +362,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Walk.started += instance.OnWalk;
             @Walk.performed += instance.OnWalk;
             @Walk.canceled += instance.OnWalk;
+            @AttackSkill1.started += instance.OnAttackSkill1;
+            @AttackSkill1.performed += instance.OnAttackSkill1;
+            @AttackSkill1.canceled += instance.OnAttackSkill1;
+            @AttackSkill2.started += instance.OnAttackSkill2;
+            @AttackSkill2.performed += instance.OnAttackSkill2;
+            @AttackSkill2.canceled += instance.OnAttackSkill2;
+            @AttackSkill3.started += instance.OnAttackSkill3;
+            @AttackSkill3.performed += instance.OnAttackSkill3;
+            @AttackSkill3.canceled += instance.OnAttackSkill3;
+            @Surfing.started += instance.OnSurfing;
+            @Surfing.performed += instance.OnSurfing;
+            @Surfing.canceled += instance.OnSurfing;
+            @JumpHigher.started += instance.OnJumpHigher;
+            @JumpHigher.performed += instance.OnJumpHigher;
+            @JumpHigher.canceled += instance.OnJumpHigher;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -274,6 +393,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Walk.started -= instance.OnWalk;
             @Walk.performed -= instance.OnWalk;
             @Walk.canceled -= instance.OnWalk;
+            @AttackSkill1.started -= instance.OnAttackSkill1;
+            @AttackSkill1.performed -= instance.OnAttackSkill1;
+            @AttackSkill1.canceled -= instance.OnAttackSkill1;
+            @AttackSkill2.started -= instance.OnAttackSkill2;
+            @AttackSkill2.performed -= instance.OnAttackSkill2;
+            @AttackSkill2.canceled -= instance.OnAttackSkill2;
+            @AttackSkill3.started -= instance.OnAttackSkill3;
+            @AttackSkill3.performed -= instance.OnAttackSkill3;
+            @AttackSkill3.canceled -= instance.OnAttackSkill3;
+            @Surfing.started -= instance.OnSurfing;
+            @Surfing.performed -= instance.OnSurfing;
+            @Surfing.canceled -= instance.OnSurfing;
+            @JumpHigher.started -= instance.OnJumpHigher;
+            @JumpHigher.performed -= instance.OnJumpHigher;
+            @JumpHigher.canceled -= instance.OnJumpHigher;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -297,5 +431,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
+        void OnAttackSkill1(InputAction.CallbackContext context);
+        void OnAttackSkill2(InputAction.CallbackContext context);
+        void OnAttackSkill3(InputAction.CallbackContext context);
+        void OnSurfing(InputAction.CallbackContext context);
+        void OnJumpHigher(InputAction.CallbackContext context);
     }
 }

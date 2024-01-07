@@ -20,6 +20,7 @@ public class Boss : MonoBehaviour
     protected bool isDead;
 
     [SerializeField] private Transform playerCheck;
+    [SerializeField] private Transform sprite;
 
     private Player player;
 
@@ -55,7 +56,17 @@ public class Boss : MonoBehaviour
     {
         if (!isDead)
         {
+            currentHealth -= attackDetails.damageAmount;
+            if(attackDetails.damageAmount >0)
+            {
+                sprite.GetComponent<FlashEffect>()?.Flash();
+            }
+            
 
+            if (currentHealth <= 0.0f)
+            {
+                isDead = true;
+            }
         }
     }
 
@@ -64,7 +75,6 @@ public class Boss : MonoBehaviour
         RaycastHit2D hit= Physics2D.Raycast(playerCheck.position, gameObject.transform.right, bossData.detectDistance,bossData.whatIsPlayer);
         if(hit != false)
         {
-            Debug.Log(hit.transform);
             player = hit.transform.GetComponent<Player>();
             return true;
         }
@@ -101,12 +111,16 @@ public class Boss : MonoBehaviour
         }
     }
 
+    public Vector3 getPlayerPositon()
+    {
+        return player.transform.position; ;
+    }
+
 
     public virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(playerCheck.position, playerCheck.position+ (Vector3)(Vector2.right * bossData.detectDistance));
     }
-
    
 
 }

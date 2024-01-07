@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions.Player.Jump.canceled += OnJumpCanceled;
         playerInputActions.Player.Walk.performed += OnWalkPerformed;
         playerInputActions.Player.Walk.canceled += OnWalkCanceled;
-        playerInputActions.Player.Surfing.performed += OnSurfingPerformed;
+        playerInputActions.Player.Dashing.performed += OnSurfingPerformed;
         playerInputActions.Player.JumpHigher.performed += OnJumpHigherPerformed;
     }
 

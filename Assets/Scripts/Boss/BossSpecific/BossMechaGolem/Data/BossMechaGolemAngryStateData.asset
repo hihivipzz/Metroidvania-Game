@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animBoolName: angry
   timeBetweenAttack: 5
-  timeBetweenSpecial: 8
+  timeBetweenSpecial: 10
   meleeDistance: 6

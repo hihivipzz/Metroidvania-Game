@@ -183,6 +183,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Dead()
     {
+        CoinManager.Instance.SpawnCoin(10, gameObject.transform.position);
         Destroy(gameObject);
     }
 

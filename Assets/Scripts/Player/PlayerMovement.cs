@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         if (rigidBody.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
         {
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         rigidBody.velocity = new Vector2(playerProperty.moveVector.x * playerProperty.moveSpeed, rigidBody.velocity.y);
         CheckGround();
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJumpHigherPerformed(InputAction.CallbackContext context)
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         if (!playerProperty.isGrounded && playerProperty.isJumping && playerProperty.isJumpHigher)
         {
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnRunPerformed(InputAction.CallbackContext context)
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         playerProperty.moveVector = context.ReadValue<Vector2>();
         playerProperty.isRunning = true;
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         if (playerProperty.isGrounded)
         {
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnWalkPerformed(InputAction.CallbackContext context)
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         playerProperty.isWalking = true;
         if (playerProperty.isJumping)
@@ -165,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSurfingPerformed(InputAction.CallbackContext context)
     {
-        if (playerProperty.isDead) return;
+        if (playerProperty.isStopMoving) return;
 
         float raycastDistance = 10f;
         Vector2 raycastOrigin = _isFacingRight ? transform.position : new Vector2(transform.position.x - raycastDistance, transform.position.y);

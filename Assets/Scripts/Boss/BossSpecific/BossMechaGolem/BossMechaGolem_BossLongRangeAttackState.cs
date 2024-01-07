@@ -7,6 +7,7 @@ public class BossMechaGolem_BossLongRangeAttackState : BossLongRangAttackState
     BossMechaGolem sBoss;
     protected GameObject projectile;
     protected BossMechaGolemArmProjectile projectileScript;
+    bool isAngry;
     public BossMechaGolem_BossLongRangeAttackState(FiniteStateMachine stateMachine, BossMechaGolem sBoss, D_BossLongRangeAttackState stateData, Transform attackPosition) : base(stateMachine, sBoss, stateData, attackPosition)
     {
         this.sBoss= sBoss;
@@ -14,6 +15,7 @@ public class BossMechaGolem_BossLongRangeAttackState : BossLongRangAttackState
 
     public override void DoCheck()
     {
+        isAngry = sBoss.checkAngry();
         base.DoCheck();
     }
 
@@ -36,7 +38,14 @@ public class BossMechaGolem_BossLongRangeAttackState : BossLongRangAttackState
     {
         if (isAnimationFinish)
         {
-            stateMachine.ChangeState(sBoss.normalState);
+            if (isAngry)
+            {
+                stateMachine.ChangeState(sBoss.angryState);
+            }
+            else
+            {
+                stateMachine.ChangeState(sBoss.normalState);
+            }  
         }
         base.LogicUpdate();
     }

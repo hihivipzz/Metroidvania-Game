@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossMechaGolem_BossSpecialAttackState : BossSpecialAttackState
 {
-    BossMechaGolem sBoss;
+    protected BossMechaGolem sBoss;
     Transform recPointA;
     Transform recPointB;
 

@@ -33,10 +33,22 @@ public class BossMechaGolem_AngryState : BossNormalState
             sBoss.Flip();
         }
 
-        if (Time.time > attackStartTime + stateData.timeBetweenAttack)
+        if(Time.time > specialStartTime + stateData.timeBetweenSpecial)
         {
+            specialStartTime= Time.time;
+            stateMachine.ChangeState(sBoss.angrySpecialAttackState);
+        }
+        else if (Time.time > attackStartTime + stateData.timeBetweenAttack)
+        {
+            if(isPlayerInCloseRange)
+            {
+                stateMachine.ChangeState(sBoss.angryMeleeAttackState);
+            }
+            else
+            {
+                stateMachine.ChangeState(sBoss.areaAttackState);
+            }
             attackStartTime = Time.time;
-            stateMachine.ChangeState(sBoss.areaAttackState);
         }
         base.LogicUpdate();
     }

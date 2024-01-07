@@ -11,7 +11,7 @@ public class SkillThree : AbtractAttack
     private void OnEnable()
     {
         playerInputActions.Enable();
-        playerInputActions.Player.AttackSkill3.performed += OnAttackPerformed;
+        //playerInputActions.Player.AttackSkill3.performed += OnAttackPerformed;
     }
 
     public override void OnAttackPerformed(InputAction.CallbackContext context)

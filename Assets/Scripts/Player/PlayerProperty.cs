@@ -23,5 +23,8 @@ public class PlayerProperty : MonoBehaviour
     public int maxHearth = 6;
     public int currentHearth;
     public bool isDead = false;
+    public bool isStopMoving = false;
     public bool isAttacking = false;
+    public int totalCoin = 0;
+    public int MIN_COIN = 0;
 }

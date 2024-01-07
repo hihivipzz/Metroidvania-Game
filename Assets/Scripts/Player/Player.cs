@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     public PlayerProperty playerProperty { get; private set; }
     private PlayerAnimator playerAnimator;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
         {
             playerProperty.currentBlood = 0;
             playerProperty.isDead = true;
+            playerProperty.isStopMoving = true;
             playerAnimator.DeadAnimation(true);
             HearthLayer.instance.RemoveHeart(playerProperty.currentHearth - 1);
             playerProperty.currentHearth -= 1;

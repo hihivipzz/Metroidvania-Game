@@ -157,10 +157,10 @@ MonoBehaviour:
   damagePointB: {fileID: 6231055059924102837}
   whatIsWall:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!50 &3211746209645359681
 Rigidbody2D:
   serializedVersion: 4

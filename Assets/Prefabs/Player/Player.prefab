@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 4324964957649671110}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,7 +273,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04625845, y: 2.1278148}
+  m_Offset: {x: 0.039367676, y: 1.948761}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -284,7 +284,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2220716, y: 4.2556295}
+  m_Size: {x: 1.4094238, y: 3.897522}
   m_EdgeRadius: 0
 --- !u!114 &405740400231760763
 MonoBehaviour:
@@ -306,6 +306,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _isFacingRight: 0
+  _cameraFollowGO: {fileID: 0}
 --- !u!114 &1982589328312088492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,10 +345,19 @@ MonoBehaviour:
   isRunning: 0
   isJumping: 0
   isDoubleJumping: 0
+  isJumpHigher: 0
   fallMultiplier: 1
   jumpMultiplier: 3
   maxBlood: 100
   minBlood: 100
+  currentBlood: 0
+  maxHearth: 6
+  currentHearth: 0
+  isDead: 0
+  isStopMoving: 0
+  isAttacking: 0
+  totalCoin: 0
+  MIN_COIN: 0
 --- !u!114 &2963829461369816505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,9 +375,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   DamageAmout: 5
-  timeEndAnimation: 1
+  timeEndAnimation: 0.5
   height: 1
   width: 2
+  comboCount: 1
+  isAttack: 0
 --- !u!114 &1649216172828155210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,9 +397,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   DamageAmout: 5
-  timeEndAnimation: 1
+  timeEndAnimation: 0.5
   height: 0.6
   width: 2
+  comboCount: 1
+  isAttack: 0
 --- !u!114 &462769073423717840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +422,8 @@ MonoBehaviour:
   timeEndAnimation: 0.5
   height: 0.6
   width: 2
+  comboCount: 1
+  isAttack: 0
 --- !u!114 &5299788072619175720
 MonoBehaviour:
   m_ObjectHideFlags: 0

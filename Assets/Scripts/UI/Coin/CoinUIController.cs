@@ -12,6 +12,6 @@ public class CoinUIController : MonoBehaviour
 
     void Update()
     {
-        coinText.text = player.playerProperty.totalCoin.ToString();
+        //coinText.text = player.playerProperty.totalCoin.ToString();
     }
 }

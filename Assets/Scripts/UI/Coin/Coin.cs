@@ -10,7 +10,7 @@ public class Coin : MonoBehaviour
 
             if (player != null)
             {
-                player.playerProperty.totalCoin += 1;
+               // player.playerProperty.totalCoin += 1;
             }
 
             Destroy(gameObject);

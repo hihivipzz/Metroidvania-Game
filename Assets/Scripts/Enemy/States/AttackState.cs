@@ -49,7 +49,7 @@ public class AttackState : EnemyState
 
     public virtual void TriggerAttack()
     {
-
+        enemy.SetApplyKnockBack(true);
     }
 
     public virtual void FinishAttack() 

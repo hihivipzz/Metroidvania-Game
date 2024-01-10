@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SkeletonArcher_PlayerDetectiveState
   m_EditorClassIdentifier: 
   animBoolName: playerDetected
-  longRangeActionTime: 1
+  longRangeActionTime: 1.5

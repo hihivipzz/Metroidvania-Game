@@ -61,7 +61,11 @@ public class BossMechaGolem_BossSpecialAttackState : BossSpecialAttackState
             Collider2D[] detectedObjects = Physics2D.OverlapAreaAll(recPointA.position, recPointB.position, stateData.whatIsPlayer);
             foreach (Collider2D collider2D in detectedObjects)
             {
-                collider2D.transform.SendMessage("Damage", attackDetails);
+                if (collider2D.transform.GetComponent<Player>())
+                {
+                    Player player = collider2D.transform.GetComponent<Player>();
+                    player.OnDamage(attackDetails);
+                }
             }
             lastPlayerDamagedTime = Time.time;
         }

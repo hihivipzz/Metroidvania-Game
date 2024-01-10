@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -13,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     public Rigidbody2D rb { get; private set; }
     public Animator anim { get; private set; }
-    public AnimationToStateMachine atsm { get;private set; }
+    public AnimationToStateMachine atsm { get; private set; }
 
     private Vector2 velocityWorkSpace;
 
@@ -32,20 +29,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform sprite;
 
-    
+
     public virtual void Start()
     {
         facingDirection = 1;
         currentHealth = enemyData.maxHealth;
         applyKnockBack = true;
 
-        isDead= false;
+        isDead = false;
 
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         atsm = GetComponent<AnimationToStateMachine>();
 
-        stateMachine= new FiniteStateMachine();
+        stateMachine = new FiniteStateMachine();
     }
 
     public virtual void Update()
@@ -61,7 +58,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void SetVelocity(float velocity)
     {
-        velocityWorkSpace.Set(facingDirection*velocity,rb.velocity.y);
+        velocityWorkSpace.Set(facingDirection * velocity, rb.velocity.y);
         rb.velocity = velocityWorkSpace;
     }
 
@@ -74,12 +71,12 @@ public class Enemy : MonoBehaviour
 
     public virtual bool CheckWall()
     {
-        return Physics2D.Raycast(wallCheck.position, this.transform.right, enemyData.wallCheckDistance,enemyData.whatIsGround);
+        return Physics2D.Raycast(wallCheck.position, this.transform.right, enemyData.wallCheckDistance, enemyData.whatIsGround);
     }
 
     public virtual bool CheckLedge()
     {
-        return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance,enemyData.whatIsGround);
+        return Physics2D.Raycast(ledgeCheck.position, Vector2.down, enemyData.ledgeCheckDistance, enemyData.whatIsGround);
     }
 
     public virtual bool CheckGround()
@@ -89,7 +86,7 @@ public class Enemy : MonoBehaviour
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position,gameObject.transform.right,enemyData.minAgroDistance,enemyData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, gameObject.transform.right, enemyData.minAgroDistance, enemyData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInManAgroRange()
@@ -105,7 +102,7 @@ public class Enemy : MonoBehaviour
     public virtual void Flip()
     {
         facingDirection *= -1;
-        this.transform.Rotate(0f, 180f,0f);
+        this.transform.Rotate(0f, 180f, 0f);
 
     }
 
@@ -117,23 +114,23 @@ public class Enemy : MonoBehaviour
 
     public void SetApplyKnockBack(bool applyKnockBack)
     {
-        this.applyKnockBack= applyKnockBack;
+        this.applyKnockBack = applyKnockBack;
     }
 
     public virtual void KnockBack()
     {
-        isKnockingBack= true;
+        isKnockingBack = true;
         knockBackStart = Time.time;
-        velocityWorkSpace.Set(enemyData.knockbackSpeedX *lastDamageDirection,enemyData.knockbackSpeedY);
+        velocityWorkSpace.Set(enemyData.knockbackSpeedX * lastDamageDirection, enemyData.knockbackSpeedY);
         rb.velocity = velocityWorkSpace;
     }
 
     private void CheckKnockback()
     {
-        if(Time.time >= knockBackStart + enemyData.knockbackDuration && isKnockingBack)
+        if (Time.time >= knockBackStart + enemyData.knockbackDuration && isKnockingBack)
         {
-            isKnockingBack= false;
-            rb.velocity = new Vector2 (0,rb.velocity.y);
+            isKnockingBack = false;
+            rb.velocity = new Vector2(0, rb.velocity.y);
 
             if (lastDamageDirection == facingDirection)
             {
@@ -142,9 +139,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void Damage( AttackDetails attackDetails)
+    public virtual void Damage(AttackDetails attackDetails)
     {
-        if(!isDead)
+        if (!isDead)
         {
             currentHealth -= attackDetails.damageAmount;
 
@@ -171,21 +168,22 @@ public class Enemy : MonoBehaviour
             {
                 isDead = true;
             }
-        } 
+        }
     }
 
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawLine(wallCheck.position,wallCheck.position + (Vector3) (Vector2.right* facingDirection*enemyData.wallCheckDistance));
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * enemyData.wallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * enemyData.ledgeCheckDistance));
 
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(gameObject.transform.right * enemyData.closeRangeActionDistance),0.2f );
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(gameObject.transform.right * enemyData.closeRangeActionDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(gameObject.transform.right * enemyData.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(gameObject.transform.right * enemyData.maxAgroDistance), 0.2f);
     }
 
-    public virtual void Dead() 
+    public virtual void Dead()
     {
+        CoinManager.Instance.SpawnCoin(10, gameObject.transform.position);
         Destroy(gameObject);
     }
 

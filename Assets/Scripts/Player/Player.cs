@@ -2,12 +2,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    void Start()
+    [SerializeField] private PlayerDataSO playerData;
+    public float currentHealth { get; private set; }
+
+
+    private void Awake()
     {
+        
     }
 
-    void Update()
+    private void Start()
     {
+        currentHealth = playerData.maxHealth;
+    }
 
+    private void OnDamage(AttackDetails attackDetail)
+    {
+       
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    public PlayerDataSO GetData()
+    {
+        return playerData;
     }
 }

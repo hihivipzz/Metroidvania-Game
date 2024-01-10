@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99d87849c14cf340a62f2799084c843, type: 3}
+  m_Name: BossMechaGolemAfterAngryMeleeAttackStateData
+  m_EditorClassIdentifier: 
+  animBoolName: afterAngryMeleeAttack
+  projectile: {fileID: 4374276542022723800, guid: b91ec4d7edd6b1348a2fd2abb8d68390, type: 3}
+  projectTileSpeed: 5
+  projectTileDame: 4

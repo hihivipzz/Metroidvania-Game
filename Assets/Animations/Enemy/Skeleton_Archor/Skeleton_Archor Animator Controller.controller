@@ -218,55 +218,55 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isWalking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: playerDetected
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isMeleeAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isLookingForPlayer
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: dodge
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: yVelocity
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isRangeAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -470,28 +470,28 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3526037684346788058}
-    m_Position: {x: 260, y: 80, z: 0}
+    m_Position: {x: 260, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6623249736153904836}
     m_Position: {x: 250, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6692768253127625198}
-    m_Position: {x: 440, y: 350, z: 0}
+    m_Position: {x: 410, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2791641296760262539}
-    m_Position: {x: 690, y: 170, z: 0}
+    m_Position: {x: 710, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -507600634810140212}
     m_Position: {x: 820, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7368582993473854578}
-    m_Position: {x: 790, y: 250, z: 0}
+    m_Position: {x: 810, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5086125386207152489}
-    m_Position: {x: 420, y: 150, z: 0}
+    m_Position: {x: 440, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5893065497496985429}
-    m_Position: {x: 520, y: 270, z: 0}
+    m_Position: {x: 550, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7596824794718935428}
     m_Position: {x: 560, y: 40, z: 0}

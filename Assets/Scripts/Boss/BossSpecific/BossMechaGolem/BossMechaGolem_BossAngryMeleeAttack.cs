@@ -50,7 +50,11 @@ public class BossMechaGolem_BossAngryMeleeAttack : BossMeleeAttackState {
 
         foreach (Collider2D collider2D in detectedObjects)
         {
-            collider2D.transform.SendMessage("Damage", attackDetails);
+            if (collider2D.transform.GetComponent<Player>())
+            {
+                Player player = collider2D.transform.GetComponent<Player>();
+                player.OnDamage(attackDetails);
+            }
         }
     }
 }

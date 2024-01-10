@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
 
     private int lastDamageDirection;
     public bool applyKnockBack { get; private set; }
-    private bool isKnockingBack;
+    public bool isKnockingBack { get; private set; }
     private float knockBackStart;
 
     protected bool isDead;
@@ -143,6 +143,7 @@ public class Enemy : MonoBehaviour
     {
         if (!isDead)
         {
+
             currentHealth -= attackDetails.damageAmount;
 
             //DamageEffect

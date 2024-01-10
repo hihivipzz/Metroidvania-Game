@@ -55,7 +55,11 @@ public class Projectile : MonoBehaviour
 
             if (damageHit)
             {
-                damageHit.transform.SendMessage("Damage", attackDetails);
+                if (damageHit.transform.GetComponent<Player>())
+                {
+                    Player player = damageHit.transform.GetComponent<Player>();
+                    player.OnDamage(attackDetails);
+                }
                 Destroy(gameObject);
             }
 

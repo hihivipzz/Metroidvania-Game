@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   maxHealth: 10
+  maxLife: 3
   gravityScale: 8
-  groundCheckRadius: 0.3
-  wallCheckDistance: 0.1
+  groundCheckRadius: 0.5
+  wallCheckDistance: 1
   runSpeed: 10
   jumpPower: 40
   airJumps: 1
@@ -28,5 +29,19 @@ MonoBehaviour:
   maxFallSpeed: 40
   dashTime: 0.2
   dashSpeed: 50
-  distanceBetweenDashImage: 0.1
+  distanceBetweenDashImage: 0.5
   dashCooldown: 0.5
+  knockbackDuration: 0.25
+  knockbackSpeedX: 15
+  knockbackSpeedY: 20
+  guardBufferTime: 0.2
+  guardDameDecrease: 0.5
+  guardCounterDameRadius: 1.5
+  guardCouterDame: 2
+  whatIsDamageable:
+    serializedVersion: 2
+    m_Bits: 256
+  wallSlideSpeed: 2
+  wallJumpBuffertime: 0.2
+  wallJumpForceX: 100
+  wallJumpForceY: 40

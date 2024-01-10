@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeleeEnemy_ChargeState : ChargeState
@@ -38,7 +39,10 @@ public class MeleeEnemy_ChargeState : ChargeState
         else if (!isDetectedLedge || isDetectedWall)
         {
             stateMachine.ChangeState(mEnemy.lookForPlayerState);
-        }else if (isChargeTimeOver)
+        }else if(mEnemy.isKnockingBack){
+            stateMachine.ChangeState(mEnemy.lookForPlayerState);
+        }
+        else if (isChargeTimeOver)
         {
             
             if(isPlayerInMinAgroRange)

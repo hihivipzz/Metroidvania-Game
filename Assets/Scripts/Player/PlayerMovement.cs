@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions.Player.Walk.performed += OnWalkPerformed;
         playerInputActions.Player.Walk.canceled += OnWalkCanceled;
         playerInputActions.Player.Dashing.performed += OnSurfingPerformed;
-        playerInputActions.Player.JumpHigher.performed += OnJumpHigherPerformed;
+        //playerInputActions.Player.JumpHigher.performed += OnJumpHigherPerformed;
     }
 
     void Start()

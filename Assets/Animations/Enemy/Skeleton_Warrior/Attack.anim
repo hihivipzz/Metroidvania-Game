@@ -108,9 +108,9 @@ AnimationClip:
       value: {fileID: -2144534141, guid: c201c0f0906a7314aa1bb3f097aa48b2, type: 3}
     - time: 0.125
       value: {fileID: -74659902, guid: c201c0f0906a7314aa1bb3f097aa48b2, type: 3}
-    - time: 0.375
+    - time: 0.5
       value: {fileID: -837129085, guid: c201c0f0906a7314aa1bb3f097aa48b2, type: 3}
-    - time: 0.625
+    - time: 0.875
       value: {fileID: -1851567937, guid: c201c0f0906a7314aa1bb3f097aa48b2, type: 3}
     attribute: m_Sprite
     path: enemy_sprites
@@ -179,7 +179,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.75
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -283,14 +283,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.375
+  - time: 0.5
     functionName: TriggerAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.625
+  - time: 0.875
     functionName: FinishAttack
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -215,6 +215,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isActiveTalk: 0
+  gameInput: {fileID: 0}
 --- !u!114 &8243993124318442542
 MonoBehaviour:
   m_ObjectHideFlags: 0

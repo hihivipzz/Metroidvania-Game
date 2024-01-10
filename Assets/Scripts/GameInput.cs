@@ -12,6 +12,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnGuardStart;
     public event EventHandler OnGuardCancel;
     public event EventHandler OnSpellAction;
+    public event EventHandler OnTalkAction;
 
     private PlayerInputActions playerInputActions;
     private void Awake()
@@ -26,6 +27,12 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Guard.started += Guard_started;
         playerInputActions.Player.Guard.canceled += Guard_canceled;
         playerInputActions.Player.Spell.performed += Spell_performed;
+        playerInputActions.Player.Talk.performed += Talk_performed;
+    }
+
+    private void Talk_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnTalkAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Spell_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

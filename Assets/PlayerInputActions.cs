@@ -73,21 +73,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Guard"",
+                    ""name"": ""Talk"",
                     ""type"": ""Button"",
-                    ""id"": ""0f949878-d371-4117-ad73-b76494845ee8"",
+                    ""id"": ""3f2a37b3-571d-473d-8582-fd2eccd52961"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Talk"",
+                    ""name"": ""Guard"",
                     ""type"": ""Button"",
-                    ""id"": ""3f2a37b3-571d-473d-8582-fd2eccd52961"",
+                    ""id"": ""29c9b567-9149-49fb-a704-abc30868c368"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Spell"",
                     ""type"": ""Button"",
-                    ""id"": ""a7b93f58-8c47-44c7-9c9e-4eecc510b6da"",
+                    ""id"": ""e88be524-5789-4265-834a-15ce9470231c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -174,7 +180,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2ec12e6d-7342-4ece-be3e-84195d061b55"",
+                    ""id"": ""a6a87795-331a-4282-a92d-c67fe2b3589c"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Talk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4695e8b8-250e-4329-ac2f-97310b5cf36d"",
                     ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -185,13 +202,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a6a87795-331a-4282-a92d-c67fe2b3589c"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Talk"",
-                    ""id"": ""bfdfe4d0-cb31-43de-b9a0-604a57ae810d"",
+                    ""id"": ""cf46f5cb-2e0a-4319-b733-37c7f05c3049"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",

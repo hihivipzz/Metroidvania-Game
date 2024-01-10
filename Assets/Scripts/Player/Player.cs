@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public bool isDead { get; private set; }
     public int coinNumber { get; private set; }
 
+
     private void Awake()
     {
         currentHealth = playerData.maxHealth;

@@ -8,24 +8,23 @@ public class NPCController : MonoBehaviour
     public float ACTIVE_TALK_DISTANCE = 1f;
     public LayerMask playerLayer;
     private SpriteRenderer spriteRenderer;
-    public PlayerInputActions playerInputActions;
     [SerializeField]
     private UnityEvent onClickEvent = new UnityEvent();
     public bool IsTalking { get; set; } = false;
     public bool isActiveTalk = false;
+    [SerializeField] private GameInput gameInput;
 
-    void Awake()
+    void Awake() 
     {
-        playerInputActions = new PlayerInputActions();
+        
     }
 
     private void OnEnable()
     {
-        playerInputActions.Enable();
-        playerInputActions.Player.Talk.performed += OnTalkPerformed;
+        gameInput.OnTalkAction += GameInput_OnTalkAction;
     }
 
-    public void OnTalkPerformed(InputAction.CallbackContext context)
+    private void GameInput_OnTalkAction(object sender, System.EventArgs e)
     {
         if (!IsTalking && isActiveTalk)
         {

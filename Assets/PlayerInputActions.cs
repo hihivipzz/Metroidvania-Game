@@ -82,6 +82,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Talk"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f2a37b3-571d-473d-8582-fd2eccd52961"",
                     ""name"": ""Spell"",
                     ""type"": ""Button"",
                     ""id"": ""a7b93f58-8c47-44c7-9c9e-4eecc510b6da"",
@@ -182,6 +185,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a6a87795-331a-4282-a92d-c67fe2b3589c"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Talk"",
                     ""id"": ""bfdfe4d0-cb31-43de-b9a0-604a57ae810d"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
@@ -203,6 +212,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Dashing = m_Player.FindAction("Dashing", throwIfNotFound: true);
+        m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
         m_Player_Spell = m_Player.FindAction("Spell", throwIfNotFound: true);
     }
@@ -271,6 +281,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Walk;
     private readonly InputAction m_Player_Dashing;
+    private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Guard;
     private readonly InputAction m_Player_Spell;
     public struct PlayerActions
@@ -282,6 +293,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
         public InputAction @Dashing => m_Wrapper.m_Player_Dashing;
+        public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Guard => m_Wrapper.m_Player_Guard;
         public InputAction @Spell => m_Wrapper.m_Player_Spell;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -308,6 +320,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Dashing.started += instance.OnDashing;
             @Dashing.performed += instance.OnDashing;
             @Dashing.canceled += instance.OnDashing;
+            @Talk.started += instance.OnTalk;
+            @Talk.performed += instance.OnTalk;
+            @Talk.canceled += instance.OnTalk;
             @Guard.started += instance.OnGuard;
             @Guard.performed += instance.OnGuard;
             @Guard.canceled += instance.OnGuard;
@@ -333,6 +348,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Dashing.started -= instance.OnDashing;
             @Dashing.performed -= instance.OnDashing;
             @Dashing.canceled -= instance.OnDashing;
+            @Talk.started -= instance.OnTalk;
+            @Talk.performed -= instance.OnTalk;
+            @Talk.canceled -= instance.OnTalk;
             @Guard.started -= instance.OnGuard;
             @Guard.performed -= instance.OnGuard;
             @Guard.canceled -= instance.OnGuard;
@@ -363,6 +381,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnDashing(InputAction.CallbackContext context);
+        void OnTalk(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
         void OnSpell(InputAction.CallbackContext context);
     }

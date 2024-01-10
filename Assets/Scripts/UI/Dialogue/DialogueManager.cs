@@ -38,6 +38,7 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count == 0)
         {
             EndDialogue();
+            FindAnyObjectByType<StoreManager>().OpenStore();
             return;
         }
 
@@ -45,8 +46,16 @@ public class DialogueManager : MonoBehaviour
         dialogueContent.text = sentence;
     }
 
+    public void SkipDialogue()
+    {
+        sentences.Clear();
+        EndDialogue();
+        FindAnyObjectByType<StoreManager>().OpenStore();
+    }
+
     public void EndDialogue()
     {
+        FindAnyObjectByType<NPCController>().IsTalking = false;
         animator.SetBool("isOpen", false);
     }
 }

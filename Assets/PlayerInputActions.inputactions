@@ -51,18 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Guard",
+                    "name": "JumpHigher",
                     "type": "Button",
-                    "id": "0f949878-d371-4117-ad73-b76494845ee8",
+                    "id": "22cc42aa-5f1d-42cb-a2ac-0ad8107d746f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Spell",
+                    "name": "Talk",
                     "type": "Button",
-                    "id": "a7b93f58-8c47-44c7-9c9e-4eecc510b6da",
+                    "id": "3f2a37b3-571d-473d-8582-fd2eccd52961",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -149,23 +149,23 @@
                 },
                 {
                     "name": "",
-                    "id": "2ec12e6d-7342-4ece-be3e-84195d061b55",
-                    "path": "<Keyboard>/u",
-                    "interactions": "",
+                    "id": "a21f6710-a322-47ba-9619-74e0bbfbfc73",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold(duration=0.3,pressPoint=1.401298E-45)",
                     "processors": "",
                     "groups": "",
-                    "action": "Guard",
+                    "action": "JumpHigher",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "bfdfe4d0-cb31-43de-b9a0-604a57ae810d",
-                    "path": "<Keyboard>/i",
+                    "id": "a6a87795-331a-4282-a92d-c67fe2b3589c",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spell",
+                    "action": "Talk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

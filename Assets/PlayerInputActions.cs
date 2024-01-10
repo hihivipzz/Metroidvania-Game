@@ -73,9 +73,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""JumpHigher"",
+                    ""name"": ""Guard"",
                     ""type"": ""Button"",
-                    ""id"": ""22cc42aa-5f1d-42cb-a2ac-0ad8107d746f"",
+                    ""id"": ""0f949878-d371-4117-ad73-b76494845ee8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -85,6 +85,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Talk"",
                     ""type"": ""Button"",
                     ""id"": ""3f2a37b3-571d-473d-8582-fd2eccd52961"",
+                    ""name"": ""Spell"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7b93f58-8c47-44c7-9c9e-4eecc510b6da"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -171,12 +174,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a21f6710-a322-47ba-9619-74e0bbfbfc73"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Hold(duration=0.3,pressPoint=1.401298E-45)"",
+                    ""id"": ""2ec12e6d-7342-4ece-be3e-84195d061b55"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""JumpHigher"",
+                    ""action"": ""Guard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -188,6 +191,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Talk"",
+                    ""id"": ""bfdfe4d0-cb31-43de-b9a0-604a57ae810d"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Spell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -203,8 +212,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         m_Player_Dashing = m_Player.FindAction("Dashing", throwIfNotFound: true);
-        m_Player_JumpHigher = m_Player.FindAction("JumpHigher", throwIfNotFound: true);
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
+        m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
+        m_Player_Spell = m_Player.FindAction("Spell", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,8 +281,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Walk;
     private readonly InputAction m_Player_Dashing;
-    private readonly InputAction m_Player_JumpHigher;
     private readonly InputAction m_Player_Talk;
+    private readonly InputAction m_Player_Guard;
+    private readonly InputAction m_Player_Spell;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -282,8 +293,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
         public InputAction @Dashing => m_Wrapper.m_Player_Dashing;
-        public InputAction @JumpHigher => m_Wrapper.m_Player_JumpHigher;
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
+        public InputAction @Guard => m_Wrapper.m_Player_Guard;
+        public InputAction @Spell => m_Wrapper.m_Player_Spell;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,12 +320,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Dashing.started += instance.OnDashing;
             @Dashing.performed += instance.OnDashing;
             @Dashing.canceled += instance.OnDashing;
-            @JumpHigher.started += instance.OnJumpHigher;
-            @JumpHigher.performed += instance.OnJumpHigher;
-            @JumpHigher.canceled += instance.OnJumpHigher;
             @Talk.started += instance.OnTalk;
             @Talk.performed += instance.OnTalk;
             @Talk.canceled += instance.OnTalk;
+            @Guard.started += instance.OnGuard;
+            @Guard.performed += instance.OnGuard;
+            @Guard.canceled += instance.OnGuard;
+            @Spell.started += instance.OnSpell;
+            @Spell.performed += instance.OnSpell;
+            @Spell.canceled += instance.OnSpell;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -333,12 +348,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Dashing.started -= instance.OnDashing;
             @Dashing.performed -= instance.OnDashing;
             @Dashing.canceled -= instance.OnDashing;
-            @JumpHigher.started -= instance.OnJumpHigher;
-            @JumpHigher.performed -= instance.OnJumpHigher;
-            @JumpHigher.canceled -= instance.OnJumpHigher;
             @Talk.started -= instance.OnTalk;
             @Talk.performed -= instance.OnTalk;
             @Talk.canceled -= instance.OnTalk;
+            @Guard.started -= instance.OnGuard;
+            @Guard.performed -= instance.OnGuard;
+            @Guard.canceled -= instance.OnGuard;
+            @Spell.started -= instance.OnSpell;
+            @Spell.performed -= instance.OnSpell;
+            @Spell.canceled -= instance.OnSpell;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -363,7 +381,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnDashing(InputAction.CallbackContext context);
-        void OnJumpHigher(InputAction.CallbackContext context);
         void OnTalk(InputAction.CallbackContext context);
+        void OnGuard(InputAction.CallbackContext context);
+        void OnSpell(InputAction.CallbackContext context);
     }
 }

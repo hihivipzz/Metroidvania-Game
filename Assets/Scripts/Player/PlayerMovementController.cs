@@ -1,5 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -9,14 +14,18 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform frontWallCheck;
+    [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f,1f);
     private PlayerDataSO data;
-
+    
 
     public LayerMask whatIsGround;
 
     public bool isRunning { get; private set; }
     public bool isDashing { get; private set; }
     public bool isKnockback { get; private set; }
+    public bool isWallSlide { get; private set; }
+    public bool isWallJumping { get; private set; }
 
 
     private Vector3 moveDir;
@@ -24,10 +33,10 @@ public class PlayerMovementController : MonoBehaviour
     private bool isFacingRight;
     private int facingDirection;
     private bool canFlip;
+    
 
 
-
-    public bool isGrounded { get; private set; }
+    public bool isGrounded {get; private set;}
     private bool canJump;
     private int bonusJumpLeft;
     private float lastGroundedTime;
@@ -36,6 +45,9 @@ public class PlayerMovementController : MonoBehaviour
     private bool isJumpFalling;
     private bool isJumpCut;
     public float lastPressedJumpTime;
+    public float lastOnWallTime;
+    public float lastOnWallLeft;
+    public float lastOnwallRight;
 
 
     private bool isTouchingWall;
@@ -44,14 +56,18 @@ public class PlayerMovementController : MonoBehaviour
     private float dashTimeLeft;
     private float knockbackStartTime;
     private Vector2 knockbackSpeed;
+    private float wallJumpStartTime;
+    private int lastWallJumpDir;
+
 
     private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<Player>();
+        player= GetComponent<Player>();
         data = player.GetData();
+        knockbackSpeed = new Vector2(data.knockbackSpeedX,data.knockbackSpeedY);
 
         SetGravityScale(data.gravityScale);
 
@@ -74,12 +90,12 @@ public class PlayerMovementController : MonoBehaviour
         if (Time.time >= (lastDash + data.dashCooldown) && !isKnockback)
         {
             AttempToDash();
-        }
+        }   
     }
 
     private void GameInput_OnJumpCancel(object sender, System.EventArgs e)
     {
-        if (isJumping && rb.velocity.y > 0)
+        if((isJumping||isWallJumping) && rb.velocity.y > 0)
         {
             isJumpCut = true;
         }
@@ -95,9 +111,12 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(isTouchingWall);
         CheckMovementDirection();
         CheckCanJump();
         JumpHandler();
+        CheckKnockBack();
+        CheckCanWallSlide();
     }
 
     private void FixedUpdate()
@@ -105,21 +124,22 @@ public class PlayerMovementController : MonoBehaviour
         RunHandler();
         DashHandler();
         CheckSurrounding();
+        WallSlideHandler();
     }
 
-    private void KnockBack()
+    public void KnockBack(float direction)
     {
         isKnockback = true;
         knockbackStartTime = Time.time;
-        rb.velocity = new Vector2(knockbackSpeed.x * facingDirection, knockbackSpeed.y);
+        rb.velocity = new Vector2(knockbackSpeed.x * direction, knockbackSpeed.y);
     }
 
     private void CheckKnockBack()
     {
-        if (Time.time >= knockbackStartTime + data.knockbackDuration)
+        if(Time.time >= knockbackStartTime + data.knockbackDuration)
         {
-            isKnockback = false;
-            rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            isKnockback= false;
+            rb.velocity =new Vector2 (0.0f,rb.velocity.y);
         }
     }
 
@@ -130,11 +150,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void CheckMovementDirection()
     {
-        if (isFacingRight && moveDir.x < 0)
+        if(isFacingRight && moveDir.x < 0)
         {
             Flip();
-        }
-        else if (!isFacingRight && moveDir.x > 0)
+        }else if(!isFacingRight&& moveDir.x > 0)
         {
             Flip();
         }
@@ -142,56 +161,92 @@ public class PlayerMovementController : MonoBehaviour
 
     private void CheckCanJump()
     {
-        if (isGrounded && rb.velocity.y <= 0)
+        if(isGrounded && rb.velocity.y <= 0)
         {
             bonusJumpLeft = data.airJumps;
         }
-
-        if (lastGroundedTime > 0 && !isJumping && !isKnockback)
+        
+        if(lastGroundedTime > 0 && !isJumping && !isKnockback)
         {
             canJump = true;
+        }else
+        {
+            canJump =  false;
+        }
+    }
+
+    private void CheckCanWallSlide()
+    {
+        if (isTouchingWall && !isGrounded && rb.velocity.y < 0 && moveDir.x*facingDirection > 0)
+        {
+            isWallSlide = true;
         }
         else
         {
-            canJump = false;
+            isWallSlide = false;
         }
     }
 
     private void JumpHandler()
     {
         lastGroundedTime -= Time.deltaTime;
+        lastOnWallTime -= Time.deltaTime;
         lastPressedJumpTime -= Time.deltaTime;
+        lastOnwallRight -= Time.deltaTime;
+        lastOnWallLeft -= Time.deltaTime;
 
-        if (isJumping && rb.velocity.y < 0)
+        if(isJumping && rb.velocity.y < 0)
         {
-            isJumping = false;
+            isJumping= false;
             isJumpFalling = true;
         }
 
-        if (lastGroundedTime > 0 && !isJumping)
+        if(isWallJumping && Time.time > wallJumpStartTime + data.wallJumpBuffertime)
         {
-            isJumpCut = false;
-            isJumpFalling = false;
+            isWallJumping = false;
         }
 
-        if (canJump && lastPressedJumpTime > 0)
+        if(lastGroundedTime > 0 && !isJumping && !isWallJumping)
         {
-            isJumping = true;
             isJumpCut = false;
-            isJumpFalling = false;
-            Jump();
+            isJumpFalling= false;
         }
 
-        if (lastGroundedTime < 0 && bonusJumpLeft > 0 && lastPressedJumpTime > 0)
+        
+
+        if (!isDashing)
         {
-            isJumping = true;
-            isJumpCut = false;
-            isJumpFalling = false;
-            Jump();
-            bonusJumpLeft--;
-            OnDoubleJump?.Invoke(this, EventArgs.Empty);
+            if (canJump && lastPressedJumpTime > 0)
+            {
+                isJumping = true;
+                isJumpCut = false;
+                isJumpFalling = false;
+                Jump();
+            }
+            if (lastGroundedTime < 0 && bonusJumpLeft > 0 && lastPressedJumpTime > 0 && !CanWallJump())
+            {
+                isJumping = true;
+                isJumpCut = false;
+                isJumpFalling = false;
+                Jump();
+                bonusJumpLeft--;
+                OnDoubleJump?.Invoke(this, EventArgs.Empty);
+
+            }else if(CanWallJump() && lastPressedJumpTime > 0)
+            {
+                isWallJumping = true;
+                isJumping = false;
+                isJumpCut = false;
+                isJumpFalling = false;
+
+                wallJumpStartTime = Time.time;
+                
+                WallJump();
+            }
 
         }
+
+        
 
         //Gravity
         if (isJumpCut)
@@ -199,11 +254,10 @@ public class PlayerMovementController : MonoBehaviour
             SetGravityScale(data.gravityScale * data.jumpCutGravityMult);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -data.maxFallSpeed));
         }
-        else if (isJumping && Mathf.Abs(rb.velocity.y) < data.jumpHangTimeThrehold)
+        else if ((isJumping||isWallJumping) && Mathf.Abs(rb.velocity.y)<data.jumpHangTimeThrehold)
         {
             SetGravityScale(data.gravityScale * data.jumpHangTimeGravityMult);
-        }
-        else if (rb.velocity.y < 0)
+        }else if(rb.velocity.y < 0)
         {
             SetGravityScale(data.gravityScale * data.fallGravityMultiplier);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -data.maxFallSpeed));
@@ -223,16 +277,20 @@ public class PlayerMovementController : MonoBehaviour
             lastGroundedTime = data.jumpCoyoteTime;
         }
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, data.wallCheckDistance, whatIsGround);
+        if (Physics2D.OverlapBox(frontWallCheck.position, wallCheckSize, 0, whatIsGround))
+        {
+            lastOnWallTime = data.jumpCoyoteTime;
+        }
     }
 
     private void Flip()
     {
-        if (canFlip)
+        if (canFlip && !isKnockback)
         {
             isFacingRight = !isFacingRight;
             transform.Rotate(0.0f, 180.0f, 0.0f);
             facingDirection *= -1;
-        }
+        } 
     }
 
     public void DisableFlip()
@@ -250,20 +308,20 @@ public class PlayerMovementController : MonoBehaviour
         Vector2 inputVector = gameInput.GetMovementNormalized();
 
         moveDir = new Vector3(inputVector.x, inputVector.y, 0f);
-        if (moveDir != Vector3.zero)
+        if(moveDir != Vector3.zero )
         {
-            isRunning = true;
+            isRunning= true;
         }
         else
         {
-            isRunning = false;
+            isRunning= false;
         }
 
         if (canMove && !isKnockback)
         {
             rb.velocity = new Vector2(data.runSpeed * moveDir.x, rb.velocity.y);
         }
-
+       
     }
 
     private void Jump()
@@ -272,7 +330,7 @@ public class PlayerMovementController : MonoBehaviour
         lastGroundedTime = 0;
 
         float force = data.jumpPower;
-        if (rb.velocity.y < 0)
+        if(rb.velocity.y < 0)
         {
             force -= rb.velocity.y;
         }
@@ -284,9 +342,28 @@ public class PlayerMovementController : MonoBehaviour
         //}  
     }
 
+    private void WallJump()
+    {
+        lastPressedJumpTime = 0;
+        lastGroundedTime = 0;
+        lastOnwallRight = 0;
+        lastOnWallLeft = 0;
+
+        Vector2 force = new Vector2(data.wallJumpForceX, data.wallJumpForceY);
+
+        if (Mathf.Sign(rb.velocity.x) != Mathf.Sign(force.x))
+           force.x -= rb.velocity.x;
+        if(rb.velocity.y < 0)
+        {
+            force.y -= rb.velocity.y;
+        }
+        Flip();
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
     private void CancelJump()
     {
-        if (rb.velocity.y >= 0)
+        if(rb.velocity.y >= 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
@@ -320,6 +397,18 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    private void WallSlideHandler()
+    {
+        if (isWallSlide)
+        {
+            Debug.Log("WallSlide");
+            if(rb.velocity.y < -data.wallSlideSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -data.wallSlideSpeed);
+            }
+        }
+    }
+
     private void AttempToDash()
     {
         isDashing = true;
@@ -334,7 +423,13 @@ public class PlayerMovementController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheckPoint.position, data.groundCheckRadius);
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + data.wallCheckDistance, wallCheck.position.y));
+        Gizmos.DrawWireCube(frontWallCheck.position, wallCheckSize);
     }
 
+    private bool CanWallJump()
+    {
+        return lastPressedJumpTime > 0 && lastOnWallTime > 0 && lastGroundedTime <= 0 ;
+    }
 
 }

@@ -15,14 +15,14 @@ MonoBehaviour:
   maxHealth: 10
   damageHopSpeed: 3
   knockbackSpeedX: 10
-  knockbackSpeedY: 0.1
-  knockbackDuration: 0.1
+  knockbackSpeedY: 10
+  knockbackDuration: 0.2
   wallCheckDistance: 1
   ledgeCheckDistance: 1
   groundCheckRadius: 0.3
   maxAgroDistance: 12
   minAgroDistance: 10
-  closeRangeActionDistance: 1.5
+  closeRangeActionDistance: 1.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128

@@ -5,13 +5,25 @@ public class CoinUIController : MonoBehaviour
 {
     public TextMeshProUGUI coinText;
     public Player player;
+
+    private void Start()
+    {
+        UpdateText();
+        player.OnPlayerCoinChange += Player_OnPlayerCoinChange;
+    }
     public void SetCoin(int coin)
     {
         coinText.text = coin.ToString();
     }
 
-    void Update()
+    private void Player_OnPlayerCoinChange(object sender, System.EventArgs e)
     {
-        //coinText.text = player.playerProperty.totalCoin.ToString();
+        UpdateText();
+    }
+
+    void UpdateText()
+    {
+       
+        coinText.text = player.coinNumber.ToString();
     }
 }

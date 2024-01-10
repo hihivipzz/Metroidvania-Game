@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerDataSO : ScriptableObject
 {
     public float maxHealth;
+    public int maxLife = 3;
 
     public float gravityScale = 8.0f;
 
@@ -31,8 +32,19 @@ public class PlayerDataSO : ScriptableObject
     public float distanceBetweenDashImage = 0.5f;
     public float dashCooldown = 1.0f;
 
-    public float knockbackDuration = 0.5f;
+    public float knockbackDuration = 0.2f;
+    public float knockbackSpeedX = 10f;
+    public float knockbackSpeedY = 10f;
 
+    public float guardBufferTime = 0.2f;
+    public float guardDameDecrease = 0.5f;
+    public float guardCounterDameRadius = 1.5f;
+    public float guardCouterDame = 2;
+    public LayerMask whatIsDamageable;
 
+    public float wallSlideSpeed = 20f;
+    public float wallJumpBuffertime =0.2f;
+    public float wallJumpForceX = 20f;
+    public float wallJumpForceY = 20f;
 
 }

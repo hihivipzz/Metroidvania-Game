@@ -15,6 +15,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnOpenBagAction;
     public event EventHandler OnOpenTreasureAction;
     public event EventHandler OnOpenSavePointAction;
+    public event EventHandler OnOpenPausedAction;
 
     private PlayerInputActions playerInputActions;
     private void Awake()
@@ -33,6 +34,12 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Bag.performed += OpenBag_performed;
         playerInputActions.Player.Treasure.performed += OpenTreasure_performed;
         playerInputActions.Player.Save.performed += OpenSavePoint_performed;
+        playerInputActions.Player.MenuOpenClose.performed += OpenPaused_performed;
+    }
+
+    private void OpenPaused_performed(InputAction.CallbackContext obj)
+    {
+        OnOpenPausedAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void OpenSavePoint_performed(InputAction.CallbackContext obj)

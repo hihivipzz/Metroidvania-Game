@@ -1,34 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
 
-    public GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameInput gameInput;
 
-    public static bool isPaused;
+    [SerializeField] private Player player;
+    [SerializeField] private PlayerAttack playerAttack;
+
+
+    private bool isPaused;
 
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
+        gameInput.OnOpenPausedAction += GameInput_OnOpenPausedAction;
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void GameInput_OnOpenPausedAction(object sender, System.EventArgs e)
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (isPaused)
         {
-           if(isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
         }
     }
 
@@ -37,26 +42,44 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+
+        player.enabled = false;
+       
     }
+
+
 
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        player.enabled = true;
+
+    }
+
+
+
+    #region Button Functions
+    public void OnContinuePress()
+    {
+       ResumeGame();
     }
 
     
-    public void GoToMainMenu()
+    public void OnMainMenuPress()
     {
-        Time.timeScale = 1f;
+        // load scene 0
         SceneManager.LoadScene(0);
     }
-    
-    // quit game
-    public void QuitGame()
+
+    public void OnQuitPress()
     {
-        Debug.Log("Quit");
         Application.Quit();
     }
+
+
+    #endregion
 }

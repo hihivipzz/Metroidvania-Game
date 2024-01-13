@@ -9,6 +9,11 @@ using UnityEngine.EventSystems;
 public class PlayerMovementController : MonoBehaviour
 {
     public event EventHandler OnDoubleJump;
+    public event EventHandler OnGroundRunning;
+    public static event EventHandler OnJumping;
+    public static event EventHandler OnWallJumping;
+    public static event EventHandler OnDashing;
+    public static event EventHandler OnKnockBack;
 
     private Player player;
     [SerializeField] private GameInput gameInput;
@@ -26,6 +31,7 @@ public class PlayerMovementController : MonoBehaviour
     public bool isKnockback { get; private set; }
     public bool isWallSlide { get; private set; }
     public bool isWallJumping { get; private set; }
+    public bool isGroundRunning { get; private set; }
 
 
     private Vector3 moveDir;
@@ -111,7 +117,6 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isTouchingWall);
         CheckMovementDirection();
         CheckCanJump();
         JumpHandler();
@@ -132,6 +137,7 @@ public class PlayerMovementController : MonoBehaviour
         isKnockback = true;
         knockbackStartTime = Time.time;
         rb.velocity = new Vector2(knockbackSpeed.x * direction, knockbackSpeed.y);
+        OnKnockBack?.Invoke(this, EventArgs.Empty);
     }
 
     private void CheckKnockBack()
@@ -321,6 +327,12 @@ public class PlayerMovementController : MonoBehaviour
         {
             rb.velocity = new Vector2(data.runSpeed * moveDir.x, rb.velocity.y);
         }
+
+        if(isGrounded && isRunning)
+        {
+            OnGroundRunning?.Invoke(this, EventArgs.Empty);
+            isRunning = true;
+        }
        
     }
 
@@ -335,6 +347,7 @@ public class PlayerMovementController : MonoBehaviour
             force -= rb.velocity.y;
         }
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        OnJumping?.Invoke(this, EventArgs.Empty);
         //if (canJump)
         //{
         //    rb.velocity = new Vector2(rb.velocity.x, data.jumpPower);
@@ -359,6 +372,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         Flip();
         rb.AddForce(force, ForceMode2D.Impulse);
+        OnWallJumping?.Invoke(this, EventArgs.Empty);
     }
 
     private void CancelJump()
@@ -417,6 +431,7 @@ public class PlayerMovementController : MonoBehaviour
 
         PlayerAfterImagePool.Instance.GetFromPool();
         lastImageXPos = transform.position.x;
+        OnDashing?.Invoke(this, EventArgs.Empty);
 
     }
 

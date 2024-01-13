@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour {
+    public static event EventHandler OnParrySuccess;
+
     [SerializeField] GameInput gameInput;
     [SerializeField] private float inputTimer;
 
@@ -52,6 +54,7 @@ public class PlayerCombatController : MonoBehaviour {
     {
         combatEnabled = true;
         isAttacking = false;
+        isUsingSpell = false;
         isGuard = false;
         gameInput.OnInteractAction += GameInput_OnInteractAction;
         gameInput.OnGuardStart += GameInput_OnGuardStart;
@@ -113,7 +116,7 @@ public class PlayerCombatController : MonoBehaviour {
 
     private void HandleCombatInput()
     {
-        if(combatEnabled && !movementController.isKnockback&&!movementController.isDashing)
+        if(combatEnabled && !isUsingSpell&&!movementController.isKnockback&&!movementController.isDashing)
         {
             if(nextComboIndex < combo.Length)
             {
@@ -126,7 +129,7 @@ public class PlayerCombatController : MonoBehaviour {
 
     private void HandleSpellInput()
     {
-        if (combatEnabled && !isAttacking && !gotInput)
+        if (combatEnabled && !isAttacking && !gotInput && !isUsingSpell)
         {
             isUsingSpell= true;
             currentSpell = playerSpell1;
@@ -185,9 +188,9 @@ public class PlayerCombatController : MonoBehaviour {
                 FinishAttack();
             }
             currentSpell = null;
-            if (currentSpell)
+            if (currentSpell != null)
             {
-                currentSpell.FinishAttack();
+                FinishSpell();
             }
         }
         else
@@ -218,9 +221,11 @@ public class PlayerCombatController : MonoBehaviour {
 
     private void FinishSpell()
     {
+        isUsingSpell = false;
+        Debug.Log(isUsingSpell + "isUsingSpell");
         currentSpell.FinishAttack();
         currentSpell = null;
-        isUsingSpell = false;
+       
     }
 
     public void Damage(AttackDetails attackDetail)
@@ -246,7 +251,7 @@ public class PlayerCombatController : MonoBehaviour {
             else
             {
                 Collider2D[] detectedObject = Physics2D.OverlapCircleAll(guardCounterAttackPos.position, player.GetData().guardCounterDameRadius, player.GetData().whatIsDamageable);
-
+                OnParrySuccess?.Invoke(this,EventArgs.Empty);
                 foreach (Collider2D collider in detectedObject)
                 {
                     if (collider.transform.parent.GetComponent<Enemy>())

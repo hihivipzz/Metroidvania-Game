@@ -13,3 +13,11 @@ MonoBehaviour:
   m_Name: AudioClipRefs
   m_EditorClassIdentifier: 
   playerFootstep: []
+  coinPickUp: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerJump: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerWallJump: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerDashing: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  parrySuccess: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerSpell: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerAttack: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerHurtSound: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}

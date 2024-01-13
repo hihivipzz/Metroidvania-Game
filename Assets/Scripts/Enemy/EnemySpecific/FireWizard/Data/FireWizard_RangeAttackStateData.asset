@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea63948bc668104459d47c604972fb48, type: 3}
+  m_Name: FireWizard_RangeAttackStateData
+  m_EditorClassIdentifier: 
+  animBoolName: isRangeAttacking
+  projectile: {fileID: 1397972903202025797, guid: fa140f98bd68f5d45922b62afd9467e6, type: 3}
+  projectileDamage: 2
+  projectileSpeed: 15
+  projectileTravelDistance: 20

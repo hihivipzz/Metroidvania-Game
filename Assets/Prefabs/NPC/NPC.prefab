@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8150465861218930419}
   - component: {fileID: 4600779828801018223}
   - component: {fileID: 4458254329769140819}
-  - component: {fileID: 6072173556876327881}
   - component: {fileID: 336587238573731899}
   - component: {fileID: 8696247953589353660}
   - component: {fileID: 8243993124318442542}
+  - component: {fileID: 7473529755426727531}
   m_Layer: 11
   m_Name: NPC
   m_TagString: Untagged
@@ -116,51 +116,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!61 &6072173556876327881
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873161997729912289}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.08050823, y: 1.0339184}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 4, y: 4}
-    newSize: {x: 4, y: 4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5042896, y: 2.0678368}
-  m_EdgeRadius: 0
 --- !u!95 &336587238573731899
 Animator:
   serializedVersion: 5
@@ -214,8 +169,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isTalking: 0
   isActiveTalk: 0
   gameInput: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  storeManager: {fileID: 0}
 --- !u!114 &8243993124318442542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,3 +193,38 @@ MonoBehaviour:
       ta kh\xF4ng? Ta v\u1EEBa c\xF3 m\u1ED9t lo h\xE0ng c\u1EF1c ch\u1EA5t l\u01B0\u1EE3ng
       v\xE0 gi\xE1 c\u1EA3 ph\u1EA3i ch\u0103ng."
     name: "Quarton Th\u01B0\u01A1ng Nh\xE2n"
+--- !u!70 &7473529755426727531
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873161997729912289}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.058646202, y: 1.0029964}
+  m_Size: {x: 1.4781666, y: 2.005993}
+  m_Direction: 0

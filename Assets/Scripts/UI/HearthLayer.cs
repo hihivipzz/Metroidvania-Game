@@ -11,7 +11,7 @@ public class HearthLayer : MonoBehaviour
     void Awake()
     {
         instance = this;
-        
+
     }
 
     void Start()
@@ -63,12 +63,12 @@ public class HearthLayer : MonoBehaviour
 
     public void UpdateHeart()
     {
-        for(int i = 0; i< currentHeart;i++)
+        for (int i = 0; i < currentHeart; i++)
         {
             hearts[i].SetActive(true);
         }
 
-        for(int i = currentHeart;i<hearts.Length;i++)
+        for (int i = currentHeart; i < hearts.Length; i++)
         {
             hearts[i].SetActive(false);
         }

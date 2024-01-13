@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e2bfbaf9fffa8459dde4a891b93dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 17363d85cc163c04cb4bccdb84718868, type: 3}
+  image: {fileID: 21300000, guid: 9221ee2c69f60c14e9d9bbad01219a52, type: 3}
   price: 0
-  description: Hello wolrd
+  description: 
+  type: 0

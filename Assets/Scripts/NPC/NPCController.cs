@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class NPCController : MonoBehaviour
 {
@@ -10,14 +9,10 @@ public class NPCController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private UnityEvent onClickEvent = new UnityEvent();
-    public bool IsTalking { get; set; } = false;
     public bool isActiveTalk = false;
     [SerializeField] private GameInput gameInput;
-
-    void Awake() 
-    {
-        
-    }
+    public DialogueManager dialogueManager;
+    public StoreManager storeManager;
 
     private void OnEnable()
     {
@@ -26,10 +21,9 @@ public class NPCController : MonoBehaviour
 
     private void GameInput_OnTalkAction(object sender, System.EventArgs e)
     {
-        if (!IsTalking && isActiveTalk)
+        if (isActiveTalk)
         {
             onClickEvent.Invoke();
-            IsTalking = true;
         }
     }
 
@@ -46,10 +40,11 @@ public class NPCController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isActiveTalk && IsTalking)
+
+        if (!isActiveTalk)
         {
-            FindAnyObjectByType<DialogueManager>().EndDialogue();
-            IsTalking = false;
+            dialogueManager.EndDialogue();
+            storeManager.CloseStore();
         }
     }
 

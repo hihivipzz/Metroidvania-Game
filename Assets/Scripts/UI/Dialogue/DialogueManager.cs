@@ -8,18 +8,23 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueContent;
     private Queue<string> sentences;
     public Animator animator;
-    public Player player;
+    private bool isOpen = false;
+    private int status = -1;
+    public StoreManager storeManager;
 
     void Start()
     {
         sentences = new Queue<string>();
     }
 
+    private void FixedUpdate()
+    {
+        animator.SetBool("isOpen", isOpen);
+    }
+
     public void StartDialogue(Dialogue dialogue)
     {
-        //player.playerProperty.isStopMoving = true;
-
-        animator.SetBool("isOpen", true);
+        isOpen = true;
 
         dialogueTitle.text = dialogue.name;
 
@@ -38,7 +43,8 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count == 0)
         {
             EndDialogue();
-            FindAnyObjectByType<StoreManager>().OpenStore();
+            status = -1;
+            storeManager.OpenStore();
             return;
         }
 
@@ -50,12 +56,18 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear();
         EndDialogue();
-        FindAnyObjectByType<StoreManager>().OpenStore();
+        status = 0;
+        storeManager.OpenStore();
     }
 
     public void EndDialogue()
     {
-        FindAnyObjectByType<NPCController>().IsTalking = false;
-        animator.SetBool("isOpen", false);
+        status = -1;
+        isOpen = false;
+    }
+
+    public int GetStatus()
+    {
+        return status;
     }
 }

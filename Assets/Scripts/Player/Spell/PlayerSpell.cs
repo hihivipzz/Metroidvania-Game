@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpell : MonoBehaviour
+public class PlayerSpell
 {
     protected bool isTrigger = false;
     protected Transform attackPos;
@@ -23,8 +23,7 @@ public class PlayerSpell : MonoBehaviour
 
    public virtual void PerformAttack()
    {
-        isTrigger = false;
-        projectile = Instantiate(data.projectile, attackPos.position, attackPos.rotation);
+        projectile = GameObject.Instantiate(data.projectile, attackPos.position, attackPos.rotation);
         projectile.GetComponent<PlayerProjectile>()?.FireProjectTile(data.Projectilespeed, data.travelTime, data.ProjectileDame);
    }
 
@@ -35,6 +34,6 @@ public class PlayerSpell : MonoBehaviour
 
     public virtual void FinishAttack()
     {
-        isTrigger= true;
+        isTrigger= false;
     }
 }

@@ -98,6 +98,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bag"",
+                    ""type"": ""Button"",
+                    ""id"": ""a214698c-efa3-4d60-bc96-cf8544ab36c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Treasure"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ca2f667-c17e-4138-a80b-a60ccf56d530"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee37ea43-9585-4212-a1eb-cec425511ba7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -210,6 +237,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Spell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7e00a42-a297-44b8-a84b-ffee7c4abdaa"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f7e945e-d95d-4d31-81a2-248972af836e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Treasure"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9d4756a-6883-4b78-a066-781ff292ac24"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -226,6 +286,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
         m_Player_Spell = m_Player.FindAction("Spell", throwIfNotFound: true);
+        m_Player_Bag = m_Player.FindAction("Bag", throwIfNotFound: true);
+        m_Player_Treasure = m_Player.FindAction("Treasure", throwIfNotFound: true);
+        m_Player_Save = m_Player.FindAction("Save", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +358,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Guard;
     private readonly InputAction m_Player_Spell;
+    private readonly InputAction m_Player_Bag;
+    private readonly InputAction m_Player_Treasure;
+    private readonly InputAction m_Player_Save;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -307,6 +373,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Guard => m_Wrapper.m_Player_Guard;
         public InputAction @Spell => m_Wrapper.m_Player_Spell;
+        public InputAction @Bag => m_Wrapper.m_Player_Bag;
+        public InputAction @Treasure => m_Wrapper.m_Player_Treasure;
+        public InputAction @Save => m_Wrapper.m_Player_Save;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -340,6 +409,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Spell.started += instance.OnSpell;
             @Spell.performed += instance.OnSpell;
             @Spell.canceled += instance.OnSpell;
+            @Bag.started += instance.OnBag;
+            @Bag.performed += instance.OnBag;
+            @Bag.canceled += instance.OnBag;
+            @Treasure.started += instance.OnTreasure;
+            @Treasure.performed += instance.OnTreasure;
+            @Treasure.canceled += instance.OnTreasure;
+            @Save.started += instance.OnSave;
+            @Save.performed += instance.OnSave;
+            @Save.canceled += instance.OnSave;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -368,6 +446,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Spell.started -= instance.OnSpell;
             @Spell.performed -= instance.OnSpell;
             @Spell.canceled -= instance.OnSpell;
+            @Bag.started -= instance.OnBag;
+            @Bag.performed -= instance.OnBag;
+            @Bag.canceled -= instance.OnBag;
+            @Treasure.started -= instance.OnTreasure;
+            @Treasure.performed -= instance.OnTreasure;
+            @Treasure.canceled -= instance.OnTreasure;
+            @Save.started -= instance.OnSave;
+            @Save.performed -= instance.OnSave;
+            @Save.canceled -= instance.OnSave;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -395,5 +482,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnTalk(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
         void OnSpell(InputAction.CallbackContext context);
+        void OnBag(InputAction.CallbackContext context);
+        void OnTreasure(InputAction.CallbackContext context);
+        void OnSave(InputAction.CallbackContext context);
     }
 }

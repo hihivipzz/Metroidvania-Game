@@ -7,6 +7,8 @@ public class ItemBase : MonoBehaviour
     public Sprite image;
     public int price;
     public string description;
+    public int type;
+    public float sizeImage = 30f;
 
     private void Start()
     {
@@ -25,11 +27,17 @@ public class ItemBase : MonoBehaviour
         imageObject.transform.SetParent(transform, false);
         imageObject.transform.localPosition = Vector3.zero;
         RectTransform rectTransform = imageObject.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(30f, 30f);
+        rectTransform.sizeDelta = new Vector2(sizeImage, sizeImage);
     }
 
     public void OnClick()
     {
         FindAnyObjectByType<ItemDetailManager>().ChangeDetailItem(this);
+    }
+
+    public bool IsAffordToBuy(int playerCoin)
+    {
+        PlayerBag playerBag = FindAnyObjectByType<PlayerBag>();
+        return playerCoin >= price && playerBag.IsAvailable();
     }
 }

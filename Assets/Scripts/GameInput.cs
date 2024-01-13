@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
@@ -13,6 +12,9 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnGuardCancel;
     public event EventHandler OnSpellAction;
     public event EventHandler OnTalkAction;
+    public event EventHandler OnOpenBagAction;
+    public event EventHandler OnOpenTreasureAction;
+    public event EventHandler OnOpenSavePointAction;
 
     private PlayerInputActions playerInputActions;
     private void Awake()
@@ -28,6 +30,19 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Guard.canceled += Guard_canceled;
         playerInputActions.Player.Spell.performed += Spell_performed;
         playerInputActions.Player.Talk.performed += Talk_performed;
+        playerInputActions.Player.Bag.performed += OpenBag_performed;
+        playerInputActions.Player.Treasure.performed += OpenTreasure_performed;
+        playerInputActions.Player.Save.performed += OpenSavePoint_performed;
+    }
+
+    private void OpenSavePoint_performed(InputAction.CallbackContext obj)
+    {
+        OnOpenSavePointAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OpenTreasure_performed(InputAction.CallbackContext obj)
+    {
+        OnOpenTreasureAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Talk_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -68,6 +83,11 @@ public class GameInput : MonoBehaviour
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OpenBag_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnOpenBagAction?.Invoke(this, EventArgs.Empty);
     }
 
     public Vector2 GetMovementNormalized()

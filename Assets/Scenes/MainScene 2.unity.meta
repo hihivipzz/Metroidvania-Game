@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/HieuSceneLv2.unity.meta
+guid: d28ba362ef5df4d4b8eb63c8d068a3f0
+========
 guid: 8d2516d019dce994992c884418604c18
+>>>>>>>> master:Assets/Scenes/MainScene 2.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

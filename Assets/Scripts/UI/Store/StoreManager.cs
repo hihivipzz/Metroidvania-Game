@@ -1,13 +1,22 @@
+using System;
 using UnityEngine;
 
 public class StoreManager : MonoBehaviour
 {
-    public Animator animator;
+    public static event EventHandler OnBuySuccess;
+    public static event EventHandler OnBuyError;
+    public static StoreManager Instance { get; private set; }
+    private Animator animator;
     private bool isOpen = false;
     public Player player;
     public ItemDetailManager itemDetailManager;
     private int status = -1;
 
+    private void Awake()
+    {
+        Instance= this;
+        animator= GetComponent<Animator>();
+    }
 
     private void FixedUpdate()
     {
@@ -35,6 +44,11 @@ public class StoreManager : MonoBehaviour
         {
             player.ChangeCoin(player.coinNumber - itemToBuy.price);
             playerBag.AddItemToBag(itemToBuy);
+            OnBuySuccess?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            OnBuyError?.Invoke(this, EventArgs.Empty);
         }
     }
 

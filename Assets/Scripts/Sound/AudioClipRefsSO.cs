@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class AudioClipRefsSO : ScriptableObject
 {
+    public AudioClip IntroMusic;
+    public AudioClip BossMusic;
+
     public AudioClip[] playerFootstep;
     public AudioClip coinPickUp;
     public AudioClip playerJump;
@@ -12,6 +15,9 @@ public class AudioClipRefsSO : ScriptableObject
     public AudioClip playerDashing;
     public AudioClip parrySuccess;
     public AudioClip playerSpell;
-    public AudioClip playerAttack;
+    public AudioClip[] playerAttack;
     public AudioClip playerHurtSound;
+
+    public AudioClip buySuccess;
+    public AudioClip buyFail;
 }

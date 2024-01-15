@@ -24,4 +24,7 @@ public class D_Enemy : ScriptableObject {
     public LayerMask whatIsGround;
     public LayerMask whatIsPlayer;
 
+    public int minGold = 7;
+    public int maxGold = 12;
+
 }

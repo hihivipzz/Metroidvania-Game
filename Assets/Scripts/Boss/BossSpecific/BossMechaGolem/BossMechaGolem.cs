@@ -64,6 +64,15 @@ public class BossMechaGolem : Boss
         base.Update();
     }
 
+    public void CheckPlayerAlive()
+    {
+        if (player.isDead && !isDead)
+        {
+            stateMachine.ChangeState(sleepState);
+            this.currentHealth = bossData.maxHealth;
+        }
+    }
+
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

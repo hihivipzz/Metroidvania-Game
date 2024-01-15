@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8696247953589353660}
   - component: {fileID: 8243993124318442542}
   - component: {fileID: 7473529755426727531}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isTalking: 0
   isActiveTalk: 0
   gameInput: {fileID: 0}
   dialogueManager: {fileID: 0}

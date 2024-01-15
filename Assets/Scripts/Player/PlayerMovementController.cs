@@ -84,6 +84,7 @@ public class PlayerMovementController : MonoBehaviour
         canFlip = true;
         isKnockback = false;
         isDashing = false;
+        isGroundRunning = false;
 
         gameInput.OnJumpAction += GameInput_OnJumpAction;
         gameInput.OnJumpCancel += GameInput_OnJumpCancel;
@@ -331,7 +332,11 @@ public class PlayerMovementController : MonoBehaviour
         if(isGrounded && isRunning)
         {
             OnGroundRunning?.Invoke(this, EventArgs.Empty);
-            isRunning = true;
+            isGroundRunning = true;
+        }
+        else
+        {
+            isGroundRunning = false;
         }
        
     }

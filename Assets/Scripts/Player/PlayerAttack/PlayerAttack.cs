@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack
 {
+    public static event EventHandler OnPlayerAttack;
+
     protected bool isTrigger = false;
     protected PlayerAttackDataSO attackData;
     protected Transform attackPos;
@@ -20,6 +23,7 @@ public class PlayerAttack
     public virtual void PerformAttack() 
     { 
         isTrigger= true;
+        OnPlayerAttack?.Invoke(this, EventArgs.Empty);
     }
 
     public virtual void FinishAttack()
@@ -52,5 +56,10 @@ public class PlayerAttack
                 boss.Damage(attackDetail);
             }
         }
+    }
+
+    public Vector3 GetAttackPos()
+    {
+        return attackPos.position;
     }
 }

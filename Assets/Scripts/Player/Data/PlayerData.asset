@@ -45,3 +45,11 @@ MonoBehaviour:
   wallJumpBuffertime: 0.2
   wallJumpForceX: 100
   wallJumpForceY: 40
+  whatIsItem:
+    serializedVersion: 2
+    m_Bits: 4096
+  whatIsNpc:
+    serializedVersion: 2
+    m_Bits: 8192
+  itemDistance: 1
+  nPCDistance: 1

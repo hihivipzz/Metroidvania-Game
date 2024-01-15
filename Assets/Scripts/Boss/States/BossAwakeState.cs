@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossAwakeState : BossState
 {
+    public static event EventHandler OnBossAwake;
     D_BossAwakeState stateData;
     protected bool isFinish ;
     public BossAwakeState(FiniteStateMachine stateMachine,  Boss boss,D_BossAwakeState stateData) : base(stateMachine, stateData.animBoolName, boss)
@@ -21,6 +23,7 @@ public class BossAwakeState : BossState
         isFinish= false;
         boss.atsm.awakeState = this;
         base.Enter();
+        OnBossAwake?.Invoke(this, EventArgs.Empty);
     }
 
     public override void Exit()

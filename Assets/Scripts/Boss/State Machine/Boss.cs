@@ -22,7 +22,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private Transform playerCheck;
     [SerializeField] private Transform sprite;
 
-    private Player player;
+    protected Player player;
 
     public virtual void Start()
     {

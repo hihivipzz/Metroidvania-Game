@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossSleepState : BossState
 {
+    public static event EventHandler OnBossSleep;
     protected D_BossSleepState stateData;
     protected bool isPlayerDetected;
 
@@ -20,6 +22,7 @@ public class BossSleepState : BossState
 
     public override void Enter()
     {
+        OnBossSleep?.Invoke(this, EventArgs.Empty);
         base.Enter();
     }
 

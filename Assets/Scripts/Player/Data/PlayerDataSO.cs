@@ -47,4 +47,10 @@ public class PlayerDataSO : ScriptableObject
     public float wallJumpForceX = 20f;
     public float wallJumpForceY = 20f;
 
+
+    public LayerMask whatIsItem;
+    public LayerMask whatIsNpc;
+    public float itemDistance=0.5f;
+    public float nPCDistance = 0.5f;
+
 }

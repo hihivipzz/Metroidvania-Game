@@ -67,6 +67,37 @@ CircleCollider2D:
   m_Offset: {x: -0.10083389, y: 0.13108826}
   serializedVersion: 2
   m_Radius: 2.4058266
+--- !u!1 &2401538184334682185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1318724773224149963}
+  m_Layer: 8
+  m_Name: AfterMeleeAttackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1318724773224149963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2401538184334682185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.11, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4791052988201153855}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4095884062428484786
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2014548588754152379}
   - component: {fileID: 2556675937020903141}
+  - component: {fileID: 8361536908094716744}
   m_Layer: 8
   m_Name: Boss_Sprites
   m_TagString: Untagged
@@ -138,9 +170,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1144356019
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 274825976, guid: 807098387f15073459beab67979487a4, type: 3}
+  m_Sprite: {fileID: -1109980592, guid: 807098387f15073459beab67979487a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,6 +183,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8361536908094716744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095884062428484786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d611c25a6f8cd42af2ddc3ef81bd26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 0b79ae665d38d7843b32ddbfc9eefa92, type: 2}
+  duration: 0.1
 --- !u!1 &4136131415438249471
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +330,7 @@ Transform:
   - {fileID: 6038167783823291297}
   - {fileID: 4547184255033799579}
   - {fileID: 196200498461294825}
+  - {fileID: 1318724773224149963}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3003807106582834612
@@ -319,7 +366,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000
+  m_Mass: 10000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -349,12 +396,14 @@ MonoBehaviour:
   bossData: {fileID: 11400000, guid: a9991ec780607494aa0079f617c1ba0b, type: 2}
   currentHealth: 0
   playerCheck: {fileID: 3952488163529369407}
+  sprite: {fileID: 2014548588754152379}
   meleeAttackPosition: {fileID: 9206764612244158434}
   longRangeAttackPosition: {fileID: 6038167783823291297}
   laserAttackPosition: {fileID: 4547184255033799579}
   laserDamagePointA: {fileID: 8824613817331358649}
   laserDamagePointB: {fileID: 5181143985563497235}
   areaAttackPosition: {fileID: 196200498461294825}
+  afterAngryAttackPosition: {fileID: 1318724773224149963}
   sleepStateData: {fileID: 11400000, guid: 09c1ac0b1e522a846a5b691a5af34455, type: 2}
   awakeStateData: {fileID: 11400000, guid: 4c91fe4691075d34682b330b534c13cc, type: 2}
   normalStateData: {fileID: 11400000, guid: 83deff2163771b0499d147ca0b4a151d, type: 2}
@@ -362,7 +411,11 @@ MonoBehaviour:
   longRangeAttackStateData: {fileID: 11400000, guid: 94d896394a6e618438063fb52b1329a9, type: 2}
   specialAttackStateData: {fileID: 11400000, guid: c87390038a575414cbc5ee6c175c3486, type: 2}
   angryStateData: {fileID: 11400000, guid: cdbc20dba4e3b644080331a794a98a8e, type: 2}
-  areAttackState: {fileID: 11400000, guid: 33d8dadde8033034cb47bb5b70173fca, type: 2}
+  areaAttackStateData: {fileID: 11400000, guid: 33d8dadde8033034cb47bb5b70173fca, type: 2}
+  angrySpecialAttackStateData: {fileID: 11400000, guid: 1d918051401c548418a0cee579063ff2, type: 2}
+  deadStateData: {fileID: 11400000, guid: d6ac30a3494469f46a4f2b3ec98d5934, type: 2}
+  angryMeleeAttackStateData: {fileID: 11400000, guid: fb85d703d2b064e478cc889723250caa, type: 2}
+  afterAngryMeleeAttackStateData: {fileID: 11400000, guid: 966d11c0c05532847a59761888d7c04a, type: 2}
 --- !u!114 &6897103594406384992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,8 +501,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1144356019
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

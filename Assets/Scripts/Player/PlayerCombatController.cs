@@ -177,7 +177,7 @@ public class PlayerCombatController : MonoBehaviour {
 
     private void CheckCanAttacks()
     {
-        if(movementController.isKnockback || player.isDead)
+        if(movementController.isKnockback || player.isDead ||player.isDetectedNPC || player.isDetectedItem)
         {
             combatEnabled = false;
             isAttacking= false;

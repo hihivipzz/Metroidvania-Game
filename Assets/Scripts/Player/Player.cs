@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,17 +9,38 @@ public class Player : MonoBehaviour
     public event EventHandler OnPlayerCoinChange;
 
     [SerializeField] private PlayerDataSO playerData;
+    [SerializeField] private Transform itemCheckPos;
+    [SerializeField] private GameInput gameInput;
     public float currentHealth { get; private set; }
     public int currentLive { get; private set; }
     private PlayerCombatController combatcontroller;
     public bool isDead { get; private set; }
     public int coinNumber { get; private set; }
+    public bool isDetectedItem { get; private set; }
+    public bool isDetectedNPC { get; private set; }
+    private TreasureController detectedItem;
+    private NPCController detectedNPC;
+    private Vector3 revivePosition;
 
     private void Awake()
     {
         currentHealth = playerData.maxHealth;
-        currentLive = 1;
+        currentLive = playerData.maxLife;
         coinNumber = 0;
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+        revivePosition = this.transform.position;
+    }
+
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
+    {
+        if(isDetectedItem)
+        {
+            
+            detectedItem.OpenTreasure();
+        }else if (isDetectedNPC)
+        {
+            detectedNPC.StartTalk(this.transform.position);
+        }
     }
 
     private void Start()
@@ -39,6 +61,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         CheckIsDead();
+        CheckItemOrNPC();
     }
 
     private void CheckIsDead()
@@ -50,6 +73,32 @@ public class Player : MonoBehaviour
         else
         {
             isDead = false;
+        }
+    }
+
+    private void CheckItemOrNPC()
+    {
+        RaycastHit2D detectedItemCollider = Physics2D.Raycast(itemCheckPos.position, transform.right, playerData.itemDistance, playerData.whatIsItem);
+        if(detectedItemCollider)
+        {
+            isDetectedItem = true;
+            detectedItem = detectedItemCollider.collider.gameObject.GetComponent<TreasureController>();
+        }
+        else
+        {
+            isDetectedItem= false;
+            detectedItem = null;
+        }
+        RaycastHit2D detectedNPCCollider = Physics2D.Raycast(itemCheckPos.position, transform.right, playerData.nPCDistance, playerData.whatIsNpc);
+        if (detectedNPCCollider)
+        {
+            isDetectedNPC = true;
+            detectedNPC = detectedNPCCollider.collider.gameObject.GetComponent<NPCController>();
+        }
+        else
+        {
+            isDetectedNPC= false;
+            detectedNPC = null;
         }
     }
 
@@ -94,5 +143,19 @@ public class Player : MonoBehaviour
     public PlayerDataSO GetData()
     {
         return playerData;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(itemCheckPos.position, new Vector3(itemCheckPos.position.x + playerData.itemDistance, itemCheckPos.position.y));
+    }
+
+    public void Revive()
+    {
+        ChangeCoin(coinNumber / 2);
+        this.transform.position = revivePosition;
+        ChangeHealth(playerData.maxHealth);
+        ChangeLive(playerData.maxLife);
+        isDead = false;
     }
 }

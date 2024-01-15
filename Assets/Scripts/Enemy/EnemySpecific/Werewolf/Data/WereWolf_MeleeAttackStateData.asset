@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animBoolName: isAttacking
   attackRadius: 2.5
-  attackDamage: 2
+  attackDamage: 5
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: WereWolf_ChargeStateData
   m_EditorClassIdentifier: 
   animBoolName: isCharging
-  chargeSpeed: 6
+  chargeSpeed: 7
   chargeTime: 2

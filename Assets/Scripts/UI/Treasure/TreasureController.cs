@@ -6,7 +6,7 @@ public class TreasureController : MonoBehaviour
 
 
     public float ACTIVE_DISTANCE = 2f;
-    public float WAITING_TIME = 1f;
+    public float WAITING_TIME = 0.5f;
     private Animator animator;
     private bool isOpen = false;
     public GameObject itemDisplay;
@@ -15,11 +15,13 @@ public class TreasureController : MonoBehaviour
     private void Awake()
     {
         isOpen = false;
+        
     }
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        treasure = GetComponent<Treasure>();
     }
 
     private void OnEnable()

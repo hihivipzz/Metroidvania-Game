@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ACTIVE_DISTANCE: 2
   WAITING_TIME: 2
-  itemDisplay: {fileID: 0}
+  itemDisplay: {fileID: 4552047427302687041, guid: 4b3598765ce1ce5409ac5508d8da2f11, type: 3}
   treasure: {fileID: 4650099296890833936}
 --- !u!70 &7131611576139392114
 CapsuleCollider2D:

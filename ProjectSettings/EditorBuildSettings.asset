@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: e2ed0a5b88818b5438bee2637d78ed6a
   - enabled: 1
-    path: Assets/Scenes/HieuSceneLv2.unity
-    guid: d28ba362ef5df4d4b8eb63c8d068a3f0
-  - enabled: 1
     path: Assets/Scenes/HieuScene.unity
     guid: 8cce91c943f618342b9767972adbb5eb
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/HieuSceneLv2.unity
+    guid: 027ab2299c2cd1b44afb4db9abd4abf4
+  - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: f291a91e953dad64695d434e00a1a366
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HaoScene.unity
     guid: 33c4e707f13a5fc4faa55b5e302a2b2b
   m_configObjects: {}

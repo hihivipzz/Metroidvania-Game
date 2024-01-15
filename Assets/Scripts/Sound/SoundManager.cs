@@ -7,11 +7,19 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [SerializeField] private AudioClipRefsSO audioClipRefsSO;
-    private float volume = 1;
+    public float volume = 10;
 
     private void Awake()
     {
-        Instance= this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else if (this != Instance)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Start()
@@ -103,6 +111,12 @@ public class SoundManager : MonoBehaviour
 
     public void PlayFootstepSound(Vector3 position)
     {
-        PlaySound(audioClipRefsSO.playerFootstep, position, volume);
+        
+        PlaySound(audioClipRefsSO.playerFootstep, 0.9f * Camera.main.transform.position + 0.1f * position, volume);
+    }
+
+    public void SetVolume(float volume)
+    {
+        this.volume = volume;
     }
 }

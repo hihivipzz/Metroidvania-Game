@@ -17,7 +17,7 @@ public class Boss : MonoBehaviour
 
     public float currentHealth;
 
-    protected bool isDead;
+    public bool isDead { get; protected set; }
 
     [SerializeField] private Transform playerCheck;
     [SerializeField] private Transform sprite;

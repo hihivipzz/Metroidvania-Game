@@ -158,4 +158,9 @@ public class Player : MonoBehaviour
         ChangeLive(playerData.maxLife);
         isDead = false;
     }
+
+    public void SetReviePos(Vector3 pos)
+    {
+        revivePosition = pos;
+    }
 }

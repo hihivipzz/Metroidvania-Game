@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    public static MusicManager Instance;
+
+    
     private AudioSource audioSouce;
     [SerializeField] private AudioClipRefsSO audioClip;
     public float volume = 10f;
@@ -11,6 +14,17 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else if (this != Instance)
+        {
+            Destroy(this.gameObject);
+        }
+
+
         audioSouce = GetComponent<AudioSource>();
         audioSouce.volume = volume;
         audioSouce.clip = audioClip.IntroMusic;
@@ -46,4 +60,12 @@ public class MusicManager : MonoBehaviour
     {
         
     }
+
+    public void SetVolume(float volume)
+    {
+       this.volume = volume;
+        audioSouce.volume = volume;
+    }
+
+
 }

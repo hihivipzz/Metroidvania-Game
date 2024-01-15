@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8339e0a3a786aef42a1c463e919730a6, type: 3}
   m_Name: WereWolf_movestateData
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  animBoolName: isWalking
+  movementSpeed: 4

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animBoolName: isRangeAttacking
   projectile: {fileID: 1397972903202025797, guid: fa140f98bd68f5d45922b62afd9467e6, type: 3}
-  projectileDamage: 2
-  projectileSpeed: 15
+  projectileDamage: 4
+  projectileSpeed: 20
   projectileTravelDistance: 20

@@ -23,37 +23,66 @@ public class SoundManager : MonoBehaviour
         PlayerMovementController.OnWallJumping += PlayerMovementController_OnWallJumping;
         PlayerMovementController.OnKnockBack += PlayerMovementController_OnKnockBack;
         PlayerCombatController.OnParrySuccess += PlayerCombatController_OnParrySuccess;
+        PlayerSpell.OnSpellTrigger += PlayerSpell_OnSpellTrigger;
+        PlayerAttack.OnPlayerAttack += PlayerAttack_OnPlayerAttack;
+        StoreManager.OnBuySuccess += StoreManager_OnBuySuccess;
+        StoreManager.OnBuyError += StoreManager_OnBuyError;
 
+    }
+
+    private void StoreManager_OnBuyError(object sender, System.EventArgs e)
+    {
+        StoreManager store = sender as StoreManager;
+        PlaySound(audioClipRefsSO.buyFail,Camera.main.transform.position,volume);
+    }
+
+    private void StoreManager_OnBuySuccess(object sender, System.EventArgs e)
+    {
+        Debug.Log(1);
+        StoreManager store = sender as StoreManager;
+        PlaySound(audioClipRefsSO.buySuccess, Camera.main.transform.position,volume);
+    }
+
+    private void PlayerAttack_OnPlayerAttack(object sender, System.EventArgs e)
+    {
+        PlayerAttack attack = sender as PlayerAttack;
+        PlaySound(audioClipRefsSO.playerAttack, attack.GetAttackPos(), volume);
+    }
+
+    private void PlayerSpell_OnSpellTrigger(object sender, System.EventArgs e)
+    {
+        PlayerSpell spell = sender as PlayerSpell;
+        PlaySound(audioClipRefsSO.playerSpell, spell.GetAttackPos(),volume);
     }
 
     private void PlayerMovementController_OnKnockBack(object sender, System.EventArgs e)
     {
         PlayerMovementController player = sender as PlayerMovementController;
-        PlaySound(audioClipRefsSO.playerHurtSound, player.transform.position);
+        PlaySound(audioClipRefsSO.playerHurtSound, player.transform.position, volume);
     }
 
     private void PlayerCombatController_OnParrySuccess(object sender, System.EventArgs e)
     {
         PlayerCombatController player = sender as PlayerCombatController;
-        PlaySound(audioClipRefsSO.parrySuccess, player.transform.position);
+        PlaySound(audioClipRefsSO.parrySuccess, player.transform.position, volume);
     }
 
     private void PlayerMovementController_OnWallJumping(object sender, System.EventArgs e)
     {
         PlayerMovementController player = sender as PlayerMovementController;
-        PlaySound(audioClipRefsSO.playerWallJump, player.transform.position);
+        PlaySound(audioClipRefsSO.playerWallJump, player.transform.position, volume);
     }
 
     private void PlayerMovementController_OnJumping(object sender, System.EventArgs e)
     {
         PlayerMovementController player = sender as PlayerMovementController;
-        PlaySound(audioClipRefsSO.playerJump, player.transform.position);
+        PlaySound(audioClipRefsSO.playerJump, player.transform.position, volume);
     }
 
     private void PlayerMovementController_onDashing(object sender, System.EventArgs e)
     {
         PlayerMovementController player = sender as PlayerMovementController;
-        PlaySound(audioClipRefsSO.playerDashing, player.transform.position);
+        PlaySound(audioClipRefsSO.playerDashing, player.transform.position, volume);
     }
 
     private void Coin_onPickUpCoin(object sender, System.EventArgs e)

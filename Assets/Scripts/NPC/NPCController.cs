@@ -1,22 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class NPCController : MonoBehaviour
 {
-    public float detectionRadius = 5f;
-    public float ACTIVE_TALK_DISTANCE = 1f;
-    public LayerMask playerLayer;
-    private SpriteRenderer spriteRenderer;
+    public static event EventHandler<OnNPCStartTalkArgument> OnNPCStartTalk;
+    public class OnNPCStartTalkArgument : EventArgs
+    {
+        public Dialogue dialogue;
+        public bool isShopNPC;
+    }
     [SerializeField]
+    public Dialogue dialogue;
     private UnityEvent onClickEvent = new UnityEvent();
     public bool isActiveTalk = false;
-    [SerializeField] private GameInput gameInput;
-    public DialogueManager dialogueManager;
-    public StoreManager storeManager;
+
+    private bool isFacingRight = true;
 
     private void OnEnable()
     {
-        gameInput.OnTalkAction += GameInput_OnTalkAction;
+        
     }
 
     private void GameInput_OnTalkAction(object sender, System.EventArgs e)
@@ -29,52 +32,36 @@ public class NPCController : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     void Update()
     {
-        DetectPlayer();
-        DetectPlayerToActiveTalk();
+        
     }
 
     private void FixedUpdate()
     {
 
-        if (!isActiveTalk)
-        {
-            dialogueManager.EndDialogue();
-            storeManager.CloseStore();
-        }
+        
     }
 
-    public void DetectPlayer()
+    public void StartTalk(Vector3 position)
     {
-        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, detectionRadius, playerLayer);
-
-        if (playerCollider != null)
+        if(transform.position.x < position.x && !isFacingRight)
         {
-            Vector3 playerPosition = playerCollider.transform.position;
-
-            if (playerPosition.x > transform.position.x && spriteRenderer.flipX)
-            {
-                Flip();
-            }
-            else if (playerPosition.x < transform.position.x && !spriteRenderer.flipX)
-            {
-                Flip();
-            }
+            Flip();
+        }else if(transform.position.x > position.x && isFacingRight)
+        {
+            Flip();
         }
+        OnNPCStartTalk?.Invoke(this, new OnNPCStartTalkArgument { dialogue=this.dialogue});
     }
 
-    public void DetectPlayerToActiveTalk()
-    {
-        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, ACTIVE_TALK_DISTANCE, playerLayer);
-        isActiveTalk = !!playerCollider;
-    }
-
+   
     public void Flip()
     {
-        spriteRenderer.flipX = !spriteRenderer.flipX;
+        isFacingRight = !isFacingRight;
+        transform.Rotate(0.0f, 180.0f, 0.0f);
     }
 }

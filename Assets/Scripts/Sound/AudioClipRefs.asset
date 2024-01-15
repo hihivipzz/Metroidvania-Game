@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb5e1445e7e13942b898bdc76cd5485, type: 3}
   m_Name: AudioClipRefs
   m_EditorClassIdentifier: 
-  playerFootstep: []
+  IntroMusic: {fileID: 8300000, guid: ad6bb6055f39b1346be1958092839787, type: 3}
+  BossMusic: {fileID: 8300000, guid: db921fa718c433f46914a25bf98951e5, type: 3}
+  playerFootstep:
+  - {fileID: 8300000, guid: 0ab04a66d3cd7ab448a6c0b4e51aa2f2, type: 3}
+  - {fileID: 8300000, guid: d7ff868d0958fa94d93f3be490733b94, type: 3}
   coinPickUp: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
-  playerJump: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
-  playerWallJump: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
-  playerDashing: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
-  parrySuccess: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerJump: {fileID: 8300000, guid: 411d46d5ee6605f4ba51366ddd40bafa, type: 3}
+  playerWallJump: {fileID: 8300000, guid: 411d46d5ee6605f4ba51366ddd40bafa, type: 3}
+  playerDashing: {fileID: 8300000, guid: 724b530640b84104299e8dcd34eeeca7, type: 3}
+  parrySuccess: {fileID: 8300000, guid: 6d6cb67f51d55514c806d13700e8d649, type: 3}
   playerSpell: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
-  playerAttack: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
-  playerHurtSound: {fileID: 8300000, guid: 6d29f4580ffb18842b1c48be69d54223, type: 3}
+  playerAttack:
+  - {fileID: 8300000, guid: 02a4446df6cf3504d8789667c9f59eae, type: 3}
+  playerHurtSound: {fileID: 8300000, guid: 53783b7e9399c314db5ce97c81f2cffb, type: 3}
+  buySuccess: {fileID: 8300000, guid: 4711acd49b30931428026a1bce4f6fc0, type: 3}
+  buyFail: {fileID: 8300000, guid: 1ab57c4cfe54fd84a83884c6387afe89, type: 3}

@@ -6,11 +6,22 @@ public class DialogueManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogueTitle;
     public TextMeshProUGUI dialogueContent;
+    public GameObject dialogBox;
     private Queue<string> sentences;
-    public Animator animator;
+    private Animator animator;
     private bool isOpen = false;
     private int status = -1;
-    public StoreManager storeManager;
+
+    private void Awake()
+    {
+        animator = dialogBox.GetComponent<Animator>();
+        NPCController.OnNPCStartTalk += NPCController_OnNPCStartTalk;
+    }
+
+    private void NPCController_OnNPCStartTalk(object sender, NPCController.OnNPCStartTalkArgument e)
+    {
+        StartDialogue(e.dialogue);
+    }
 
     void Start()
     {
@@ -44,7 +55,7 @@ public class DialogueManager : MonoBehaviour
         {
             EndDialogue();
             status = -1;
-            storeManager.OpenStore();
+            StoreManager.Instance.OpenStore();
             return;
         }
 
@@ -57,7 +68,7 @@ public class DialogueManager : MonoBehaviour
         sentences.Clear();
         EndDialogue();
         status = 0;
-        storeManager.OpenStore();
+        StoreManager.Instance.OpenStore();
     }
 
     public void EndDialogue()
@@ -70,4 +81,6 @@ public class DialogueManager : MonoBehaviour
     {
         return status;
     }
+
+
 }

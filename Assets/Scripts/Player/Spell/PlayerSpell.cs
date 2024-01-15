@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSpell
 {
+    public static event EventHandler OnSpellTrigger;
     protected bool isTrigger = false;
     protected Transform attackPos;
     protected AttackDetails attackDetails;
@@ -19,6 +21,7 @@ public class PlayerSpell
     public virtual void TriggerAttack()
     {
         isTrigger= true;
+        OnSpellTrigger?.Invoke(this, EventArgs.Empty);
     }
 
    public virtual void PerformAttack()
@@ -35,5 +38,10 @@ public class PlayerSpell
     public virtual void FinishAttack()
     {
         isTrigger= false;
+    }
+
+    public Vector3 GetAttackPos()
+    {
+        return attackPos.position;
     }
 }

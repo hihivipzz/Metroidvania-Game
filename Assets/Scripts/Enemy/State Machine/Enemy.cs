@@ -184,7 +184,8 @@ public class Enemy : MonoBehaviour
 
     public virtual void Dead()
     {
-        CoinManager.Instance.SpawnCoin(10, gameObject.transform.position);
+        int numberOfCoin = Random.Range(enemyData.minGold, enemyData.maxGold);
+        CoinManager.Instance.SpawnCoin(numberOfCoin, gameObject.transform.position);
         Destroy(gameObject);
     }
 

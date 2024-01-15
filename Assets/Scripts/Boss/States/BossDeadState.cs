@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossDeadState : BossState {
+    public static event EventHandler OnBossDeadState;
     D_BossDeadState stateData;
 
     public BossDeadState(FiniteStateMachine stateMachine,  Boss boss, D_BossDeadState stateData) : base(stateMachine, stateData.animBoolName, boss)
@@ -18,6 +20,7 @@ public class BossDeadState : BossState {
     public override void Enter()
     {
         base.Enter();
+        OnBossDeadState?.Invoke(this, EventArgs.Empty);
     }
 
     public override void Exit()

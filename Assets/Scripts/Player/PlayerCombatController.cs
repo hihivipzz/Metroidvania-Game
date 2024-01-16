@@ -286,6 +286,6 @@ public class PlayerCombatController : MonoBehaviour {
         Gizmos.DrawWireSphere(attack1Pos.position, attack1Data.attackRadius);
         Gizmos.DrawWireSphere(attack2Pos.position, attack2Data.attackRadius);
         Gizmos.DrawWireSphere(attack3Pos.position, attack3Data.attackRadius);
-        Gizmos.DrawWireSphere(guardCounterAttackPos.position, player.GetData().guardCounterDameRadius);
+        //Gizmos.DrawWireSphere(guardCounterAttackPos.position, player.GetData().guardCounterDameRadius);
     }
 }

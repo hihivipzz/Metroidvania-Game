@@ -31,6 +31,7 @@ public class BossMechaGolem_BossSleepState : BossSleepState
         if (isPlayerDetected)
         {
             sBoss.stateMachine.ChangeState(sBoss.awakeState);
+            
         }
         base.LogicUpdate();
     }

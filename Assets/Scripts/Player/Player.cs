@@ -152,11 +152,10 @@ public class Player : MonoBehaviour
 
     public void Revive()
     {
-        ChangeCoin(coinNumber / 2);
         this.transform.position = revivePosition;
+        ChangeCoin(coinNumber / 2);
         ChangeHealth(playerData.maxHealth);
         ChangeLive(playerData.maxLife);
-        isDead = false;
     }
 
     public void SetReviePos(Vector3 pos)

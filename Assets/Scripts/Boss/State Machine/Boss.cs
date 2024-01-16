@@ -73,9 +73,14 @@ public class Boss : MonoBehaviour
     public virtual bool CheckPlayerInRange()
     {
         RaycastHit2D hit= Physics2D.Raycast(playerCheck.position, gameObject.transform.right, bossData.detectDistance,bossData.whatIsPlayer);
-        if(hit != false)
+        if(hit != false )
         {
             player = hit.transform.GetComponent<Player>();
+            if ( player.isDead)
+            {
+                player = null;
+                return false;
+            }
             return true;
         }
         return false;

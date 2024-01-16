@@ -172,6 +172,17 @@
                 },
                 {
                     "name": "",
+                    "id": "accb396b-d650-49bf-9208-f6bfd164cdca",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "81788a5c-42b1-4f9e-a4b9-3cf2cec29757",
                     "path": "<Keyboard>/shift",
                     "interactions": "Hold(duration=1.401298E-45,pressPoint=1.401298E-45)",

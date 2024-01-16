@@ -18,11 +18,12 @@ public class PlayerSound : MonoBehaviour
 
     private void Update()
     {
-        if(Time.time> lastFootstepSound + footstepSoundTime && playerMovementController.isGroundRunning)
-        {
-            SoundManager.Instance.PlayFootstepSound(player.transform.position);
-            lastFootstepSound = Time.time;
-        }
+       
 
+    }
+
+    public void PlayFootStepSound()
+    {
+        SoundManager.Instance.PlayFootstepSound(player.transform.position);
     }
 }

@@ -62,6 +62,7 @@ public class BossMechaGolem : Boss
     public override void Update()
     {
         base.Update();
+        CheckPlayerAlive();
     }
 
     public void CheckPlayerAlive()
@@ -70,6 +71,11 @@ public class BossMechaGolem : Boss
         {
             stateMachine.ChangeState(sleepState);
             this.currentHealth = bossData.maxHealth;
+            if(facingDirection <= 0)
+            {
+                Flip();
+            }
+            this.laserAttackPosition.rotation = Quaternion.identity;
         }
     }
 

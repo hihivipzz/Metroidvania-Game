@@ -15,4 +15,4 @@ MonoBehaviour:
   animBoolName: areaAttack
   projectile: {fileID: 4053848019334845944, guid: 38eff84dc4be3ae488b102eaa79f9f9c, type: 3}
   projectTileSpeed: 15
-  projectTileDame: 4
+  projectTileDame: 3.5

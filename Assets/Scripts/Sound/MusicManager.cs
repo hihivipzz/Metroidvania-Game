@@ -19,19 +19,17 @@ public class MusicManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
-        else if (this != Instance)
+        else if (this != Instance && Instance != null)
         {
             Destroy(this.gameObject);
         }
-
-
+    }
+    void Start()
+    {
         audioSouce = GetComponent<AudioSource>();
         audioSouce.volume = volume;
         audioSouce.clip = audioClip.IntroMusic;
         audioSouce.Play();
-    }
-    void Start()
-    {
         BossAwakeState.OnBossAwake += BossAwakeState_OnBossAwake;
         BossDeadState.OnBossDeadState += BossDeadState_OnBossDeadState;
         BossSleepState.OnBossSleep += BossSleepState_OnBossSleep;

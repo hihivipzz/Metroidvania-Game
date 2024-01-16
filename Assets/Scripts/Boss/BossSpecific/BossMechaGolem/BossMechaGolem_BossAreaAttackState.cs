@@ -9,7 +9,7 @@ public class BossMechaGolem_BossAreaAttackState : BossLongRangAttackState
     protected BossMechaGolemArmProjectile projectileScript;
 
     private int numberOfProjectile = 7;
-    private float distanceBetweenProjectile = 5;
+    private float distanceBetweenProjectile = 6.5f;
 
 
     public BossMechaGolem_BossAreaAttackState(FiniteStateMachine stateMachine, BossMechaGolem sBoss, D_BossLongRangeAttackState stateData, Transform attackPosition) : base(stateMachine, sBoss, stateData, attackPosition)
